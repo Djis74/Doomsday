@@ -366,9 +366,15 @@ function showUpload(room){
     <div class="card">
       <div class="ct">Tes 6 photos</div>
       <div class="pgrid">${slots}</div>
-      ${photos.length<6?`<button class="btn bg" id="btn-add" style="margin-top:.75rem">+ Ajouter des photos (${photos.length}/6)</button>`
+      ${photos.length<6?`
+        <div class="btn-row" style="margin-top:.75rem">
+          <button class="btn bg" id="btn-camera">📷 Photo</button>
+          <button class="btn bg" id="btn-gallery">🖼️ Galerie</button>
+        </div>
+        <div class="hint" style="margin-top:.4rem">${photos.length}/6 photos ajoutées</div>`
         :`<div style="text-align:center;color:#4caf50;font-size:.8rem;margin-top:.6rem;letter-spacing:.1em">✓ Prêt !</div>`}
-      <input type="file" id="fi" accept="image/*" multiple capture="environment" style="display:none"/>
+      <input type="file" id="fi-camera" accept="image/*" capture="environment" style="display:none"/>
+      <input type="file" id="fi-gallery" accept="image/*" multiple style="display:none"/>
     </div>
     <div class="card">
       <div class="ct">Joueurs</div>
@@ -379,10 +385,11 @@ function showUpload(room){
       ?`<button class="btn bp" id="btn-go" ${allReady?'':'disabled'}>${allReady?'Lancer le jeu !':rCount+'/'+room.players.length+' prêts…'}</button>`
       :`<div class="pulse">En attente que l'host lance…</div>`}
   `);
-  const fi=document.getElementById('fi');
-  const openFile=()=>fi.click();
-  document.getElementById('btn-add')?.addEventListener('click',openFile);
-  document.querySelectorAll('.add-slot').forEach(s=>s.onclick=openFile);
+  const fiCamera=document.getElementById('fi-camera');
+  const fiGallery=document.getElementById('fi-gallery');
+  document.getElementById('btn-camera')?.addEventListener('click',()=>fiCamera.click());
+  document.getElementById('btn-gallery')?.addEventListener('click',()=>fiGallery.click());
+  document.querySelectorAll('.add-slot').forEach(s=>s.onclick=()=>fiGallery.click());
   document.querySelectorAll('.rx').forEach(btn=>btn.onclick=async e=>{
     e.stopPropagation();
     const d=await getRoom(roomCode);
@@ -390,19 +397,19 @@ function showUpload(room){
     mp.photos.splice(parseInt(btn.dataset.i),1);mp.ready=false;
     await saveRoom(roomCode,d);
   });
-  fi.onchange=async e=>{
-    const files=Array.from(e.target.files);
+  async function handleFiles(files){
     const d=await getRoom(roomCode);
     const mp=d.players.find(p=>p.id===pid);
     const rem=6-(mp.photos||[]).length;
-    for(const f of files.slice(0,rem)){
+    for(const f of Array.from(files).slice(0,rem)){
       const url=await new Promise(res=>{const r=new FileReader();r.onload=ev=>res(ev.target.result);r.readAsDataURL(f)});
       mp.photos.push(await compress(url));
     }
     mp.ready=mp.photos.length===6;
     await saveRoom(roomCode,d);
-    fi.value='';
-  };
+  }
+  fiCamera.onchange=async e=>{await handleFiles(e.target.files);fiCamera.value=''};
+  fiGallery.onchange=async e=>{await handleFiles(e.target.files);fiGallery.value=''};
   if(me.isHost){
     document.getElementById('btn-go')?.addEventListener('click',async()=>{
       const d=await getRoom(roomCode);
