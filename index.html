@@ -590,105 +590,110 @@ function showAnsrev(room){
     </div>
     <div class="card"><div class="ggrid">${gphotos(room,false)}</div></div>
     ${!isChooser
-      ?`<button class="btn bgold" id="btn-elim">Éliminer des photos →</button>`
-      :`<div class="pulse">Les enquêteurs délibèrent…</div>`}
+      ?`<button class="btn bgold" id="btn-elim">Passer à l'élimination →</button>`
+      :`<div class="pulse">Les enquêteurs discutent…</div>`}
   `);
   if(!isChooser){
-    document.getElementById('btn-elim').onclick=async()=>{
-      const d=await getRoom(roomCode);d.phase=PHASE.ELIM;d.elimChoices={};await saveRoom(roomCode,d);
-    };
+    const activeEnqId=room.enqueteurs[room.curEnqIdx%room.enqueteurs.length];
+    const btn=document.getElementById('btn-elim');
+    if(pid!==activeEnqId){btn.disabled=true;btn.textContent="En attente de l'enquêteur actif…";}
+    else{btn.onclick=async()=>{const d=await getRoom(roomCode);d.phase=PHASE.ELIM;d.pendingElim=[];await saveRoom(roomCode,d);};}
   }
 }
 
 // ── ELIM ─────────────────────────────────────────────────────────────────────
 function showElim(room){
   const isChooser=pid===room.chooserId;
-  const votedCount=Object.keys(room.elimChoices||{}).length;
-  const enqCount=room.enqueteurs.length;
-  const myVote=(room.elimChoices||{})[pid];
-
-  if(isChooser){
-    html('elim',`
-      <div class="rbadge rch">👑 Les Enquêteurs décident</div>
-      <div class="card" style="text-align:center">
-        <p style="font-family:'Crimson Pro',serif;font-size:.9rem;line-height:1.5;color:#888">
-          Les enquêteurs votent pour éliminer des photos…<br/>
-          <span style="color:var(--red);font-weight:600">Croise les doigts.</span>
-        </p>
-        <div style="margin-top:.8rem" class="pulse">${votedCount}/${enqCount} ont voté…</div>
-      </div>
-      <div class="card"><div class="ggrid">${gphotos(room,false)}</div></div>
-    `);
-    return;
-  }
-
-  if(myVote){
-    html('elim',`
-      <div class="card" style="text-align:center">
-        <div class="ct">Vote soumis ✓</div>
-        <p style="font-family:'Crimson Pro',serif;color:#666;font-size:.88rem">${votedCount}/${enqCount} enquêteurs ont voté</p>
-        <div style="margin-top:.8rem" class="pulse">En attente des autres…</div>
-      </div>
-      <div class="card"><div class="ggrid">${gphotos(room,false)}</div></div>
-    `);
-    return;
-  }
-
+  const activeEnqId=room.enqueteurs[room.curEnqIdx%room.enqueteurs.length];
+  const isActiveEnq=pid===activeEnqId;
+  const activeEnqName=room.players.find(p=>p.id===activeEnqId)?.name||'?';
+  const pending=room.pendingElim||[];
   const ac=room.answer==='oui'?'a-oui':room.answer==='non'?'a-non':'a-dk';
   const label=room.answer==='ne sait pas'?'NE SAIT PAS':room.answer.toUpperCase();
+  const selCount=pending.length;
+
+  // ── VUE SPECTATEUR (Celui qui choisit + enquêteurs non-actifs) ──
+  if(!isActiveEnq){
+    html('elim',`
+      <div class="rbadge ${isChooser?'rch':'ren'}">${isChooser?'👑 Celui qui Choisit':'🔍 Enquêteur — Spectateur'}</div>
+      <div class="rbox" style="margin-bottom:0">
+        <div class="rq">Est-ce que l'Élu ${room.question} ?</div>
+        <div class="ra ${ac}">${label}</div>
+      </div>
+      <div class="card">
+        <div class="ct">Sélection de ${activeEnqName}</div>
+        <p style="font-family:'Crimson Pro',serif;font-size:.85rem;color:#666;margin-bottom:.75rem">
+          ${isChooser
+            ?`<span style="color:var(--red)">Croise les doigts…</span>`
+            :`Discutez entre vous ! ${activeEnqName} fait la sélection finale.`}
+        </p>
+        <div class="ggrid">${gphotos(room,false,pending)}</div>
+        <div class="vote-count" style="margin-top:.5rem">
+          ${selCount>0
+            ?`<span style="color:var(--red)">${selCount} photo${selCount>1?'s':''} sélectionnée${selCount>1?'s':''}</span> — en attente de confirmation…`
+            :`<span style="color:#444">Aucune photo sélectionnée pour l'instant…</span>`}
+        </div>
+      </div>
+      <div class="pulse">En attente de ${activeEnqName}…</div>
+    `);
+    return;
+  }
+
+  // ── VUE ENQUÊTEUR ACTIF ──
   html('elim',`
-    <div class="rbadge ren">🔍 Phase d'Élimination</div>
-    <div class="rbox">
+    <div class="rbadge ren">🔍 C'est ton tour d'éliminer</div>
+    <div class="rbox" style="margin-bottom:0">
       <div class="rq">Est-ce que l'Élu ${room.question} ?</div>
       <div class="ra ${ac}">${label}</div>
     </div>
     <div class="card">
       <div class="ct">Sélectionne les photos à éliminer</div>
       <p style="font-family:'Crimson Pro',serif;font-size:.85rem;color:#666;margin-bottom:.75rem">
-        Élimine celles qui correspondent le <strong>moins</strong> à la réponse. (min. 1)
+        Élimine celles qui correspondent le <strong>moins</strong> à la réponse. (min. 1)<br/>
+        <span style="color:#555;font-size:.8rem">Les autres joueurs voient ta sélection en direct.</span>
       </p>
-      <div class="ggrid" id="egrid">${gphotos(room,true)}</div>
-      <div class="vote-count" id="vinfo">0 photo sélectionnée</div>
+      <div class="ggrid" id="egrid">${gphotos(room,true,pending)}</div>
+      <div class="vote-count" id="vinfo">
+        ${selCount>0?`${selCount} photo${selCount>1?'s':''} sélectionnée${selCount>1?'s':'`'}…`:'0 photo sélectionnée'}
+      </div>
     </div>
-    <button class="btn bd" id="btn-elim-ok" disabled>Confirmer l'élimination</button>
-    <div class="hint">${votedCount}/${enqCount} enquêteurs ont voté</div>
+    <button class="btn bd" id="btn-elim-ok" ${selCount>0?'':'disabled'}>Confirmer l'élimination</button>
   `);
 
-  localVotes=[];
+  // Sync local state from Firestore pendingElim
+  localVotes=[...pending];
+
   document.querySelectorAll('.gp.sel').forEach(el=>{
-    el.onclick=()=>{
+    el.onclick=async()=>{
       const i=parseInt(el.dataset.i);
-      if(localVotes.includes(i)){localVotes=localVotes.filter(x=>x!==i);el.classList.remove('chosen')}
-      else{localVotes.push(i);el.classList.add('chosen')}
+      if(localVotes.includes(i)){localVotes=localVotes.filter(x=>x!==i);}
+      else{localVotes.push(i);}
+      // Update vinfo locally for instant feedback
       const n=localVotes.length;
       document.getElementById('vinfo').textContent=`${n} photo${n>1?'s':''} sélectionnée${n>1?'s':''}`;
       document.getElementById('btn-elim-ok').disabled=n===0;
+      // Sync selection to Firestore so others see it live
+      const d=await getRoom(roomCode);
+      d.pendingElim=localVotes;
+      await saveRoom(roomCode,d);
     };
   });
 
   document.getElementById('btn-elim-ok').onclick=async()=>{
     if(localVotes.length===0)return;
     const d=await getRoom(roomCode);
-    if(!d.elimChoices)d.elimChoices={};
-    d.elimChoices[pid]=localVotes;
-    const allVoted=d.enqueteurs.every(id=>d.elimChoices[id]);
-    if(allVoted){
-      // tally
-      const counts={};
-      Object.values(d.elimChoices).forEach(votes=>votes.forEach(i=>{counts[i]=(counts[i]||0)+1}));
-      const maxV=Math.max(...Object.values(counts));
-      const toElim=Object.entries(counts).filter(([,c])=>c===maxV).map(([i])=>parseInt(i));
-      const newElims=[...(d.eliminations||[]),...toElim];
-      if(toElim.includes(d.eluIndex)){
-        d.eliminations=newElims;d.winner='chooser';d.phase=PHASE.END;
-      } else {
-        const rem=d.displayPhotos.filter((_,i)=>!newElims.includes(i));
-        if(rem.length<=1){d.eliminations=newElims;d.winner='enqueteurs';d.phase=PHASE.END;}
-        else{
-          d.eliminations=newElims;d.elimChoices={};d.curEnqIdx=(d.curEnqIdx||0)+1;
-          d.history=[...(d.history||[]),{q:d.question,a:d.answer}];
-          d.question='';d.answer='';d.phase=PHASE.QPICK;
-        }
+    const toElim=localVotes;
+    const newElims=[...(d.eliminations||[]),...toElim];
+    d.pendingElim=[];
+    if(toElim.includes(d.eluIndex)){
+      d.eliminations=newElims;d.winner='chooser';d.phase=PHASE.END;
+    } else {
+      const rem=d.displayPhotos.filter((_,i)=>!newElims.includes(i));
+      if(rem.length<=1){d.eliminations=newElims;d.winner='enqueteurs';d.phase=PHASE.END;}
+      else{
+        d.eliminations=newElims;d.curEnqIdx=(d.curEnqIdx||0)+1;
+        d.history=[...(d.history||[]),{q:d.question,a:d.answer}];
+        d.question='';d.answer='';d.phase=PHASE.QPICK;
       }
     }
     await saveRoom(roomCode,d);
@@ -740,13 +745,15 @@ function showEnd(room){
 }
 
 // ── HELPERS ──────────────────────────────────────────────────────────────────
-function gphotos(room,selectable=false){
+function gphotos(room,selectable=false,pending=[]){
   const elims=room.eliminations||[];
   return (room.displayPhotos||[]).map((p,i)=>{
     const isElim=elims.includes(i);
+    const isPending=pending.includes(i);
     let cls='gp';
     if(selectable&&!isElim)cls+=' sel';
     if(isElim)cls+=' elim';
+    if(isPending)cls+=' chosen';
     return `<div class="${cls}" data-i="${i}"><img src="${p.src}"/><div class="pnum">${i+1}</div></div>`;
   }).join('');
 }
