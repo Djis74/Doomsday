@@ -10,38 +10,15 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;background:#0a0a0a;overscroll-behavior:none}
 body{font-family:'IBM Plex Mono',monospace;color:#f0e8d8;min-height:100vh;overflow-x:hidden}
-
-/* ── VARIABLES ── */
-:root{
-  --black:#0a0a0a;--red:#c8102e;--red-dark:#8a0b1e;
-  --gold:#d4a843;--cream:#f0e8d8;--gray:#222;--gray2:#1a1a1a;
-}
-
-/* ── GRAIN OVERLAY ── */
-body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-  opacity:.5;
-}
-
-/* ── HEADER ── */
-#hdr{
-  background:#0d0d0d;border-bottom:1px solid #1e1e1e;
-  padding:1.2rem 1rem .9rem;text-align:center;position:relative;
-}
+:root{--black:#0a0a0a;--red:#c8102e;--red-dark:#8a0b1e;--gold:#d4a843;--cream:#f0e8d8;--gray:#222;--gray2:#1a1a1a}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");opacity:.5}
+#hdr{background:#0d0d0d;border-bottom:1px solid #1e1e1e;padding:1.2rem 1rem .9rem;text-align:center;position:relative}
 #hdr::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:48px;height:2px;background:var(--red)}
 #hdr h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,7vw,3.5rem);letter-spacing:.06em;line-height:1;text-shadow:0 0 40px rgba(200,16,46,.35)}
 #hdr p{font-family:'Crimson Pro',serif;font-style:italic;color:var(--gold);font-size:.78rem;letter-spacing:.18em;margin-top:.2rem}
-#hdr .room-code-label{font-size:.6rem;letter-spacing:.2em;color:#555;margin-top:.15rem}
-
-/* ── SCREEN ── */
 .scr{max-width:480px;margin:0 auto;padding:1.5rem 1rem 3rem;display:flex;flex-direction:column;gap:1rem;align-items:center}
-
-/* ── CARD ── */
 .card{background:var(--gray2);border:1px solid #252525;border-radius:4px;padding:1.2rem;width:100%}
 .ct{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:.12em;color:var(--gold);margin-bottom:.75rem;border-bottom:1px solid #252525;padding-bottom:.4rem}
-
-/* ── BUTTONS ── */
 .btn{font-family:'IBM Plex Mono',monospace;font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.85rem 1.5rem;border:none;cursor:pointer;border-radius:2px;transition:all .15s;display:block;width:100%;text-align:center}
 .bp{background:var(--red);color:var(--cream)}.bp:hover{background:var(--red-dark)}.bp:active{transform:scale(.98)}
 .bg{background:transparent;color:var(--cream);border:1px solid #3a3a3a}.bg:hover{border-color:var(--gold);color:var(--gold)}
@@ -50,84 +27,62 @@ body::before{
 .btn:disabled{opacity:.28;cursor:not-allowed;transform:none!important}
 .btn-row{display:flex;gap:.5rem;width:100%}
 .btn-row .btn{flex:1}
-
-/* ── INPUT ── */
 .inp{font-family:'IBM Plex Mono',monospace;font-size:.9rem;background:#1e1e1e;border:1px solid #333;color:var(--cream);padding:.7rem .9rem;border-radius:2px;width:100%;outline:none;transition:border-color .15s}
 .inp:focus{border-color:var(--gold)}
 .inp::placeholder{color:#444}
 label{font-size:.65rem;letter-spacing:.14em;color:#555;display:block;margin-bottom:.35rem}
-
-/* ── CODE DISPLAY ── */
 .code-big{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;letter-spacing:.35em;color:var(--gold);text-align:center;text-shadow:0 0 30px rgba(212,168,67,.28)}
-
-/* ── PLAYER ROW ── */
 .prow{display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;background:#1e1e1e;border-radius:2px;font-size:.78rem}
 .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.dg{background:#4caf50;box-shadow:0 0 5px #4caf50}.dd{background:#3a3a3a}
 .bdg{font-size:.58rem;letter-spacing:.1em;padding:.15rem .4rem;border-radius:2px;text-transform:uppercase;margin-left:auto;white-space:nowrap}
 .b-host{background:var(--red);color:var(--cream)}
 .b-ready{background:#112211;color:#4caf50;border:1px solid #2a5a2a}
 .b-wait{background:#181818;color:#555;border:1px solid #2a2a2a}
-
-/* ── PHOTO GRIDS ── */
 .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
 .pslot{aspect-ratio:1;background:#1e1e1e;border:1px dashed #333;border-radius:3px;display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;position:relative;color:#444;font-size:1.4rem;transition:border-color .15s}
 .pslot:hover{border-color:var(--gold)}
 .pslot img{width:100%;height:100%;object-fit:cover}
 .pslot .rx{position:absolute;top:3px;right:3px;background:rgba(200,16,46,.92);color:#fff;border:none;border-radius:2px;width:20px;height:20px;font-size:.6rem;cursor:pointer;align-items:center;justify-content:center;display:none}
 .pslot:hover .rx{display:flex}
-
 .ggrid{display:grid;grid-template-columns:repeat(4,1fr);gap:.45rem}
 .gp{aspect-ratio:1;border-radius:3px;overflow:hidden;position:relative;border:2px solid transparent;transition:border-color .2s,opacity .3s,transform .2s;cursor:default}
 .gp img{width:100%;height:100%;object-fit:cover;display:block}
 .gp.sel{cursor:pointer}.gp.sel:hover{border-color:var(--gold);transform:scale(1.03)}
-.gp.chosen{border-color:var(--red)!important}
-.gp.chosen::after{content:'✓';position:absolute;inset:0;background:rgba(200,16,46,.4);display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#fff}
 .gp.elim{opacity:.1;filter:grayscale(1);pointer-events:none;transform:none!important}
-.gp.elu-reveal{border-color:var(--gold)!important}
-.gp.elu-reveal::after{content:'👑';position:absolute;inset:0;background:rgba(212,168,67,.82);display:flex;align-items:center;justify-content:center;font-size:1.8rem}
-.pnum{position:absolute;bottom:3px;left:3px;background:rgba(0,0,0,.72);color:var(--gold);font-size:.55rem;padding:1px 3px;font-family:'Bebas Neue',sans-serif;letter-spacing:.08em}
-
-/* ── ROLE BADGE ── */
+.gp.active-elim{border-color:var(--red)!important;box-shadow:0 0 8px rgba(200,16,46,.4)}
+.gp.active-elim::before{content:'✕';position:absolute;top:3px;right:3px;background:var(--red);color:#fff;font-size:.55rem;width:15px;height:15px;border-radius:2px;display:flex;align-items:center;justify-content:center;font-weight:bold;z-index:2}
+.pnum{position:absolute;bottom:3px;left:3px;background:rgba(0,0,0,.72);color:var(--gold);font-size:.55rem;padding:1px 3px;font-family:'Bebas Neue',sans-serif;letter-spacing:.08em;z-index:1}
+.sdots{position:absolute;top:3px;left:3px;display:flex;gap:2px;flex-wrap:wrap;max-width:65%;z-index:2}
+.sdot{width:9px;height:9px;border-radius:50%;border:1px solid rgba(0,0,0,.5);flex-shrink:0}
 .rbadge{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.15em;padding:.5rem 1.5rem;border-radius:3px;text-align:center;width:100%}
 .rch{background:var(--red);color:var(--cream)}
 .ren{background:#111;color:var(--gold);border:1px solid #333}
-
-/* ── QUESTION CARDS ── */
 .qcard{background:#1e1e1e;border:1px solid #2e2e2e;border-radius:3px;padding:.85rem 1rem;cursor:pointer;font-family:'Crimson Pro',serif;font-size:.95rem;color:var(--cream);transition:all .15s;text-align:left;line-height:1.45;width:100%;display:block;margin-bottom:.4rem}
 .qcard:hover{border-color:var(--gold);background:#242424}
 .qcard.qsel{border-color:var(--red);background:#1a0508;color:var(--red)}
-
-/* ── REVEAL BOX ── */
 .rbox{background:#0d0d0d;border:1px solid var(--gold);border-radius:4px;padding:1.3rem;text-align:center;width:100%}
 .rq{font-family:'Crimson Pro',serif;font-style:italic;font-size:1rem;color:var(--cream);margin-bottom:.5rem;line-height:1.4}
 .ra{font-family:'Bebas Neue',sans-serif;font-size:2.3rem;letter-spacing:.15em}
 .a-oui{color:#4caf50;text-shadow:0 0 15px rgba(76,175,80,.4)}
 .a-non{color:var(--red);text-shadow:0 0 15px rgba(200,16,46,.4)}
 .a-dk{color:var(--gold);text-shadow:0 0 15px rgba(212,168,67,.4)}
-
-/* ── ANSWER BUTTONS ── */
 .abtns{display:flex;gap:.5rem;width:100%}
 .abtn{flex:1;padding:.9rem .5rem;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.1em;border:none;border-radius:3px;cursor:pointer;transition:all .15s}
 .ay{background:#112211;color:#4caf50;border:1px solid #2a5a2a}.ay:hover{background:#4caf50;color:#0a0a0a}
 .an{background:#220a0a;color:var(--red);border:1px solid #5a1a1a}.an:hover{background:var(--red);color:var(--cream)}
 .adk{background:#1e1a08;color:var(--gold);border:1px solid #4a3a15}.adk:hover{background:var(--gold);color:#0a0a0a}
-
-/* ── PROGRESS ── */
 .pbar{width:100%;height:3px;background:#1e1e1e;border-radius:2px;overflow:hidden;margin-bottom:.8rem}
 .pfill{height:100%;background:var(--red);transition:width .4s}
-
-/* ── PULSE ── */
 .pulse{display:flex;align-items:center;justify-content:center;gap:.5rem;color:#555;font-size:.72rem;letter-spacing:.08em}
 .pulse::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pu 1.5s ease-in-out infinite}
 @keyframes pu{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1)}}
-
-/* ── END ── */
 .etitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,10vw,4rem);letter-spacing:.1em;line-height:1;text-align:center}
 .ewin{color:var(--gold);text-shadow:0 0 40px rgba(212,168,67,.4)}
 .elose{color:var(--red);text-shadow:0 0 40px rgba(200,16,46,.4)}
-
-/* ── MISC ── */
+.manche-badge{font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.18em;color:#555;text-align:center;padding:.3rem .8rem;border:1px solid #252525;border-radius:2px;background:#111;width:100%}
+.legend{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.6rem}
+.legend-item{display:flex;align-items:center;gap:.35rem;font-size:.65rem;color:#777;letter-spacing:.05em}
+.legend-dot{width:10px;height:10px;border-radius:50%;border:1px solid rgba(0,0,0,.3);flex-shrink:0}
 .hint{font-size:.68rem;color:#444;text-align:center;letter-spacing:.08em;line-height:1.65}
 .err{color:var(--red);font-size:.75rem;text-align:center;min-height:1.2rem;letter-spacing:.05em}
 .sep{width:100%;height:1px;background:#1e1e1e}
@@ -135,39 +90,27 @@ label{font-size:.65rem;letter-spacing:.14em;color:#555;display:block;margin-bott
 .hlog{max-height:120px;overflow-y:auto;display:flex;flex-direction:column;gap:.3rem}
 .hrow{font-size:.72rem;border-bottom:1px solid #1e1e1e;padding:.35rem 0;color:#777;line-height:1.4}
 .hrow span{color:var(--gold)}
-
-/* ── LOADING ── */
-#loading{position:fixed;inset:0;background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;z-index:9000}
-#loading h2{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.1em;color:var(--gold)}
-#loading p{font-size:.75rem;color:#555;letter-spacing:.12em}
-.spinner{width:36px;height:36px;border:2px solid #222;border-top-color:var(--red);border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* ── VOTE BADGE ── */
-.vote-count{font-size:.68rem;color:#555;text-align:center;margin-top:.4rem;letter-spacing:.1em}
+.vcount{font-size:.68rem;color:#555;text-align:center;margin-top:.4rem;letter-spacing:.1em}
+.pool-info{background:#111;border:1px solid #252525;border-radius:3px;padding:.6rem .9rem;font-size:.72rem;color:#666;letter-spacing:.08em;width:100%;text-align:center}
+.pool-info strong{color:var(--gold)}
+.custom-q-wrap{display:flex;align-items:center;gap:.5rem;background:#1e1e1e;border:1px solid #2e2e2e;border-radius:3px;padding:.7rem 1rem;margin-bottom:.4rem;transition:border-color .15s}
+.custom-q-wrap:focus-within{border-color:var(--gold)}
+.custom-q-prefix{font-family:'Crimson Pro',serif;font-size:.9rem;color:#555;white-space:nowrap;font-style:italic;flex-shrink:0}
+.custom-q-input{font-family:'Crimson Pro',serif;font-size:.95rem;color:var(--cream);background:transparent;border:none;outline:none;flex:1;min-width:0}
+.custom-q-input::placeholder{color:#444;font-style:italic}
 </style>
 </head>
 <body>
-
-<div id="loading">
-  <div class="spinner"></div>
-  <h2>Le Jour du Jugement</h2>
-  <p>Connexion…</p>
-</div>
-
 <div id="hdr" style="display:none">
   <h1>Le Jour du Jugement</h1>
   <p id="hdr-sub">qui sera l'élu ?</p>
 </div>
-
 <div id="root"></div>
 
-<!-- Firebase SDKs -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// ── CONFIG ──────────────────────────────────────────────────────────────────
 const firebaseConfig = {
   apiKey: "AIzaSyBKvpew106iDfzz16fV19cTwWQsBp3KBnY",
   authDomain: "le-jour-du-jugement.firebaseapp.com",
@@ -180,7 +123,10 @@ const firebaseConfig = {
 const fbApp = initializeApp(firebaseConfig);
 const db = getFirestore(fbApp);
 
-// ── CONSTANTS ────────────────────────────────────────────────────────────────
+// Couleur par index de joueur
+const COLORS = ['#e74c3c','#3498db','#2ecc71','#f39c12','#9b59b6','#1abc9c'];
+function pColor(room, playerId){ const i=room.players.findIndex(p=>p.id===playerId); return COLORS[Math.max(0,i)]; }
+
 const PHASE = {LOBBY:'lobby',UPLOAD:'upload',CHOOSING:'choosing',QPICK:'qpick',QREV:'qrev',ANS:'ans',ANSREV:'ansrev',ELIM:'elim',END:'end'};
 
 const QUESTIONS = [
@@ -194,71 +140,52 @@ const QUESTIONS = [
   "a un ex bloqué sur tous les réseaux","parle à son chat comme à un humain",
   "a déjà pris une photo de son repas avant de manger","a un dossier caché sur son téléphone",
   "a déjà googlé son propre nom","a déjà senti ses vêtements pour voir s'ils sont propres",
-  "croit avoir des capacités psychiques","a déjà imité son patron dans son dos",
-  "a peur des pigeons","commande toujours la même chose au resto",
-  "a déjà utilisé la maladie comme excuse pour esquiver","a déjà envoyé un SMS au mauvais destinataire",
-  "a regardé le profil LinkedIn de son ex","a déjà triché au Uno","possède encore une Nintendo DS",
-  "a peur des clowns","a déjà chanté seul dans sa voiture à fond","boit du jus d'orange sans pulpe",
+  "croit avoir des capacités psychiques","a déjà imité son patron dans son dos","a peur des pigeons",
+  "commande toujours la même chose au resto","a déjà utilisé la maladie comme excuse pour esquiver",
+  "a déjà envoyé un SMS au mauvais destinataire","a regardé le profil LinkedIn de son ex",
+  "a déjà triché au Uno","possède encore une Nintendo DS","a peur des clowns",
+  "a déjà chanté seul dans sa voiture à fond","boit du jus d'orange sans pulpe",
   "a déjà fait semblant de ne pas voir quelqu'un dans la rue","parle à ses plantes",
-  "a un abonnement Netflix depuis plus d'un an sans rien regarder"
+  "a un abonnement Netflix depuis plus d'un an sans rien regarder",
+  "a déjà mangé directement dans la casserole","a une application de méditation jamais utilisée"
 ];
 
-function rndQ(n=4){return [...QUESTIONS].sort(()=>Math.random()-.5).slice(0,n)}
+function rndQ(n=3){return [...QUESTIONS].sort(()=>Math.random()-.5).slice(0,n)}
 function genCode(){return Math.random().toString(36).substr(2,4).toUpperCase()}
-function genId(){
-  let id=localStorage.getItem('jdj_pid2');
-  if(!id){id=Math.random().toString(36).substr(2,10);localStorage.setItem('jdj_pid2',id)}
-  return id;
-}
+function genId(){let id=localStorage.getItem('jdj_pid4');if(!id){id=Math.random().toString(36).substr(2,10);localStorage.setItem('jdj_pid4',id)}return id}
 async function compress(dataUrl,maxW=320,q=.65){
   return new Promise(res=>{
     const img=new Image();
-    img.onload=()=>{
-      const c=document.createElement('canvas');
-      const r=Math.min(maxW/img.width,maxW/img.height,1);
-      c.width=Math.round(img.width*r);c.height=Math.round(img.height*r);
-      c.getContext('2d').drawImage(img,0,0,c.width,c.height);
-      res(c.toDataURL('image/jpeg',q));
-    };img.src=dataUrl;
+    img.onload=()=>{const c=document.createElement('canvas');const r=Math.min(maxW/img.width,maxW/img.height,1);c.width=Math.round(img.width*r);c.height=Math.round(img.height*r);c.getContext('2d').drawImage(img,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',q))};
+    img.src=dataUrl;
   });
 }
 
-// ── STATE ────────────────────────────────────────────────────────────────────
-const pid = genId();
-let roomCode = '';
-let unsub = null;
-let localVotes = []; // for elim phase
+const pid=genId();
+let roomCode='',unsub=null,localVotes=[],localSuggestions=[];
 
-// ── FIRESTORE HELPERS ────────────────────────────────────────────────────────
-async function getRoom(code){ const s=await getDoc(doc(db,'rooms',code)); return s.exists()?s.data():null; }
-async function saveRoom(code,data){ await setDoc(doc(db,'rooms',code),data); }
-async function patchRoom(code,patch){ await updateDoc(doc(db,'rooms',code),patch); }
-
-function listenRoom(code, cb){
-  if(unsub) unsub();
-  unsub = onSnapshot(doc(db,'rooms',code), snap=>{ if(snap.exists()) cb(snap.data()); });
-}
-
-// ── RENDER ────────────────────────────────────────────────────────────────────
-function setHdr(sub){ document.getElementById('hdr-sub').textContent = sub||'qui sera l\'élu ?'; }
+async function getRoom(c){const s=await getDoc(doc(db,'rooms',c));return s.exists()?s.data():null}
+async function saveRoom(c,d){await setDoc(doc(db,'rooms',c),d)}
+function listenRoom(c,cb){if(unsub)unsub();unsub=onSnapshot(doc(db,'rooms',c),snap=>{if(snap.exists())cb(snap.data())})}
+function setHdr(t){document.getElementById('hdr-sub').textContent=t}
+function html(id,content){document.getElementById('root').innerHTML=`<div class="scr" id="${id}">${content}</div>`}
 
 async function render(room){
   document.getElementById('hdr').style.display='';
-  if(!room){ showHome(); return; }
-  setHdr(room.code ? `room : ${room.code}` : 'qui sera l\'élu ?');
-  const ph=room.phase;
-  if(ph===PHASE.LOBBY)   return showLobby(room);
-  if(ph===PHASE.UPLOAD)  return showUpload(room);
+  if(!room){showHome();return}
+  const mancheLabel=room.manche>1?` · Manche ${room.manche}`:'';
+  setHdr(room.code?`room : ${room.code}${mancheLabel}`:'qui sera l\'élu ?');
+  const {phase:ph}=room;
+  if(ph===PHASE.LOBBY)    return showLobby(room);
+  if(ph===PHASE.UPLOAD)   return showUpload(room);
   if(ph===PHASE.CHOOSING) return showChoosing(room);
-  if(ph===PHASE.QPICK)   return showQpick(room);
-  if(ph===PHASE.QREV)    return showQrev(room);
-  if(ph===PHASE.ANS)     return showAns(room);
-  if(ph===PHASE.ANSREV)  return showAnsrev(room);
-  if(ph===PHASE.ELIM)    return showElim(room);
-  if(ph===PHASE.END)     return showEnd(room);
+  if(ph===PHASE.QPICK)    return showQpick(room);
+  if(ph===PHASE.QREV)     return showQrev(room);
+  if(ph===PHASE.ANS)      return showAns(room);
+  if(ph===PHASE.ANSREV)   return showAnsrev(room);
+  if(ph===PHASE.ELIM)     return showElim(room);
+  if(ph===PHASE.END)      return showEnd(room);
 }
-
-function html(id,content){ document.getElementById('root').innerHTML=`<div class="scr" id="${id}">${content}</div>`; }
 
 // ── HOME ──────────────────────────────────────────────────────────────────────
 function showHome(){
@@ -285,13 +212,13 @@ function showHome(){
     const name=document.getElementById('pname').value.trim();
     if(!name){err('Entre ton prénom !');return}
     const code=genCode();
-    const room={code,phase:PHASE.LOBBY,players:[{id:pid,name,isHost:true,photos:[],ready:false}],
-      displayPhotos:[],eluIndex:-1,chooserId:'',enqueteurs:[],curEnqIdx:0,
-      question:'',answer:'',eliminations:[],history:[],winner:'',elimChoices:{}};
-    await saveRoom(code,room);
-    roomCode=code;
-    listenRoom(code,render);
-    render(room);
+    const room={code,phase:PHASE.LOBBY,manche:1,
+      players:[{id:pid,name,isHost:true,photos:[],ready:false}],
+      photoPool:[],displayPhotos:[],eluIndex:-1,chooserId:'',enqueteurs:[],
+      curEnqIdx:0,question:'',answer:'',eliminations:[],history:[],winner:'',
+      pendingElim:[],suggestions:{}
+    };
+    await saveRoom(code,room);roomCode=code;listenRoom(code,render);render(room);
   };
   document.getElementById('btn-join').onclick=async()=>{
     const name=document.getElementById('pname').value.trim();
@@ -299,25 +226,23 @@ function showHome(){
     if(!name){err('Entre ton prénom !');return}
     if(code.length!==4){err('Code à 4 lettres !');return}
     const room=await getRoom(code);
-    if(!room){err('Room introuvable. Vérifie le code !');return}
-    if(room.phase!==PHASE.LOBBY){err('La partie a déjà commencé !');return}
+    if(!room){err('Room introuvable !');return}
+    if(room.phase!==PHASE.LOBBY){err('Partie déjà commencée !');return}
     if(room.players.length>=6){err('Room pleine (6 max) !');return}
     if(!room.players.find(p=>p.id===pid)){
       room.players.push({id:pid,name,isHost:false,photos:[],ready:false});
       await saveRoom(code,room);
     }
-    roomCode=code;
-    listenRoom(code,render);
-    render(room);
+    roomCode=code;listenRoom(code,render);render(room);
   };
 }
 
-// ── LOBBY ────────────────────────────────────────────────────────────────────
+// ── LOBBY ─────────────────────────────────────────────────────────────────────
 function showLobby(room){
   const me=room.players.find(p=>p.id===pid)||{};
-  const rows=room.players.map(p=>`
+  const rows=room.players.map((p,i)=>`
     <div class="prow">
-      <div class="dot ${p.id===pid?'dg':'dd'}"></div>
+      <div class="dot" style="background:${COLORS[i]};box-shadow:0 0 5px ${COLORS[i]}40"></div>
       <span>${p.name}${p.id===pid?' <span style="color:#444">(toi)</span>':''}</span>
       <span class="bdg ${p.isHost?'b-host':'b-wait'}">${p.isHost?'HOST':'joueur'}</span>
     </div>`).join('');
@@ -325,7 +250,7 @@ function showLobby(room){
     <div class="card">
       <div class="ct">Code de la Room</div>
       <div class="code-big">${room.code}</div>
-      <div class="hint" style="margin-top:.5rem">Partage ce code avec tes amis<br/>Chaque joueur l'ouvre sur son téléphone</div>
+      <div class="hint" style="margin-top:.5rem">Partage ce code — chacun l'ouvre sur son téléphone</div>
     </div>
     <div class="card">
       <div class="ct">Joueurs (${room.players.length}/6)</div>
@@ -333,21 +258,14 @@ function showLobby(room){
     </div>
     ${me.isHost
       ?`<button class="btn bp" id="btn-start" ${room.players.length>=2?'':'disabled'}>
-          ${room.players.length>=2?`Lancer le jeu (${room.players.length} joueurs)`:'En attente de joueurs…'}
+          ${room.players.length>=2?`Lancer (${room.players.length} joueurs)`:'En attente de joueurs…'}
         </button>`
-      :`<div class="pulse">En attente que l'host lance la partie…</div>`
-    }
+      :`<div class="pulse">En attente que l'host lance…</div>`}
   `);
-  if(me.isHost){
-    document.getElementById('btn-start').onclick=async()=>{
-      const d=await getRoom(roomCode);
-      d.phase=PHASE.UPLOAD;
-      await saveRoom(roomCode,d);
-    };
-  }
+  if(me.isHost) document.getElementById('btn-start').onclick=async()=>{const d=await getRoom(roomCode);d.phase=PHASE.UPLOAD;await saveRoom(roomCode,d)};
 }
 
-// ── UPLOAD ───────────────────────────────────────────────────────────────────
+// ── UPLOAD ────────────────────────────────────────────────────────────────────
 function showUpload(room){
   const me=room.players.find(p=>p.id===pid)||{id:pid,photos:[],isHost:false};
   const photos=me.photos||[];
@@ -356,22 +274,25 @@ function showUpload(room){
     :`<div class="pslot add-slot">+</div>`).join('');
   const rCount=room.players.filter(p=>(p.photos||[]).length===6).length;
   const allReady=rCount===room.players.length;
-  const prows=room.players.map(p=>`
+  const prows=room.players.map((p,i)=>`
     <div class="prow">
-      <div class="dot ${(p.photos||[]).length===6?'dg':'dd'}"></div>
+      <div class="dot" style="background:${COLORS[i]};box-shadow:0 0 4px ${COLORS[i]}40"></div>
       <span>${p.name}${p.id===pid?' (toi)':''}</span>
       <span class="bdg ${(p.photos||[]).length===6?'b-ready':'b-wait'}">${(p.photos||[]).length===6?'✓ PRÊT':`${(p.photos||[]).length}/6`}</span>
     </div>`).join('');
+  const poolSize=(room.photoPool||[]).length;
   html('upload',`
+    ${room.manche>1?`<div class="manche-badge">⚔ MANCHE ${room.manche}</div>`:''}
+    ${poolSize>0?`<div class="pool-info">♻️ <strong>${poolSize}</strong> photo${poolSize>1?'s':''} en réserve depuis la manche précédente</div>`:''}
     <div class="card">
       <div class="ct">Tes 6 photos</div>
       <div class="pgrid">${slots}</div>
-      ${photos.length<6?`
-        <div class="btn-row" style="margin-top:.75rem">
-          <button class="btn bg" id="btn-camera">📷 Photo</button>
-          <button class="btn bg" id="btn-gallery">🖼️ Galerie</button>
-        </div>
-        <div class="hint" style="margin-top:.4rem">${photos.length}/6 photos ajoutées</div>`
+      ${photos.length<6
+        ?`<div class="btn-row" style="margin-top:.75rem">
+            <button class="btn bg" id="btn-camera">📷 Photo</button>
+            <button class="btn bg" id="btn-gallery">🖼️ Galerie</button>
+          </div>
+          <div class="hint" style="margin-top:.35rem">${photos.length}/6 ajoutées</div>`
         :`<div style="text-align:center;color:#4caf50;font-size:.8rem;margin-top:.6rem;letter-spacing:.1em">✓ Prêt !</div>`}
       <input type="file" id="fi-camera" accept="image/*" capture="environment" style="display:none"/>
       <input type="file" id="fi-gallery" accept="image/*" multiple style="display:none"/>
@@ -382,51 +303,47 @@ function showUpload(room){
       <div style="display:flex;flex-direction:column;gap:.4rem">${prows}</div>
     </div>
     ${me.isHost
-      ?`<button class="btn bp" id="btn-go" ${allReady?'':'disabled'}>${allReady?'Lancer le jeu !':rCount+'/'+room.players.length+' prêts…'}</button>`
+      ?`<button class="btn bp" id="btn-go" ${allReady?'':'disabled'}>${allReady?'Lancer !':rCount+'/'+room.players.length+' prêts…'}</button>`
       :`<div class="pulse">En attente que l'host lance…</div>`}
   `);
-  const fiCamera=document.getElementById('fi-camera');
-  const fiGallery=document.getElementById('fi-gallery');
-  document.getElementById('btn-camera')?.addEventListener('click',()=>fiCamera.click());
-  document.getElementById('btn-gallery')?.addEventListener('click',()=>fiGallery.click());
-  document.querySelectorAll('.add-slot').forEach(s=>s.onclick=()=>fiGallery.click());
+  const fiC=document.getElementById('fi-camera'),fiG=document.getElementById('fi-gallery');
+  document.getElementById('btn-camera')?.addEventListener('click',()=>fiC.click());
+  document.getElementById('btn-gallery')?.addEventListener('click',()=>fiG.click());
+  document.querySelectorAll('.add-slot').forEach(s=>s.onclick=()=>fiG.click());
   document.querySelectorAll('.rx').forEach(btn=>btn.onclick=async e=>{
     e.stopPropagation();
-    const d=await getRoom(roomCode);
-    const mp=d.players.find(p=>p.id===pid);
-    mp.photos.splice(parseInt(btn.dataset.i),1);mp.ready=false;
-    await saveRoom(roomCode,d);
+    const d=await getRoom(roomCode);const mp=d.players.find(p=>p.id===pid);
+    mp.photos.splice(parseInt(btn.dataset.i),1);mp.ready=false;await saveRoom(roomCode,d);
   });
   async function handleFiles(files){
-    const d=await getRoom(roomCode);
-    const mp=d.players.find(p=>p.id===pid);
+    const d=await getRoom(roomCode);const mp=d.players.find(p=>p.id===pid);
     const rem=6-(mp.photos||[]).length;
     for(const f of Array.from(files).slice(0,rem)){
       const url=await new Promise(res=>{const r=new FileReader();r.onload=ev=>res(ev.target.result);r.readAsDataURL(f)});
       mp.photos.push(await compress(url));
     }
-    mp.ready=mp.photos.length===6;
+    mp.ready=mp.photos.length===6;await saveRoom(roomCode,d);
+  }
+  fiC.onchange=async e=>{await handleFiles(e.target.files);fiC.value=''};
+  fiG.onchange=async e=>{await handleFiles(e.target.files);fiG.value=''};
+  if(me.isHost) document.getElementById('btn-go')?.addEventListener('click',async()=>{
+    const d=await getRoom(roomCode);
+    // Pool = nouvelles photos + pool restant
+    const newPhotos=d.players.flatMap(p=>(p.photos||[]).map(src=>({src,owner:p.id})));
+    const fullPool=[...(d.photoPool||[]),...newPhotos].sort(()=>Math.random()-.5);
+    const display=fullPool.slice(0,Math.min(12,fullPool.length));
+    const remaining=fullPool.slice(Math.min(12,fullPool.length));
+    const ci=Math.floor(Math.random()*d.players.length);
+    const chooser=d.players[ci];
+    const enqs=d.players.filter(p=>p.id!==chooser.id).map(p=>p.id);
+    Object.assign(d,{photoPool:remaining,displayPhotos:display,chooserId:chooser.id,enqueteurs:enqs,
+      curEnqIdx:0,eluIndex:-1,eliminations:[],history:[],winner:'',pendingElim:[],suggestions:{},
+      question:'',answer:'',phase:PHASE.CHOOSING});
     await saveRoom(roomCode,d);
-  }
-  fiCamera.onchange=async e=>{await handleFiles(e.target.files);fiCamera.value=''};
-  fiGallery.onchange=async e=>{await handleFiles(e.target.files);fiGallery.value=''};
-  if(me.isHost){
-    document.getElementById('btn-go')?.addEventListener('click',async()=>{
-      const d=await getRoom(roomCode);
-      const all=d.players.flatMap(p=>(p.photos||[]).map(src=>({src,owner:p.id})));
-      const shuffled=all.sort(()=>Math.random()-.5);
-      const display=shuffled.slice(0,Math.min(12,all.length));
-      const ci=Math.floor(Math.random()*d.players.length);
-      const chooser=d.players[ci];
-      const enqs=d.players.filter(p=>p.id!==chooser.id).map(p=>p.id);
-      Object.assign(d,{displayPhotos:display,chooserId:chooser.id,enqueteurs:enqs,curEnqIdx:0,
-        eluIndex:-1,eliminations:[],history:[],winner:'',elimChoices:{},question:'',answer:'',phase:PHASE.CHOOSING});
-      await saveRoom(roomCode,d);
-    });
-  }
+  });
 }
 
-// ── CHOOSING ─────────────────────────────────────────────────────────────────
+// ── CHOOSING ──────────────────────────────────────────────────────────────────
 function showChoosing(room){
   const isChooser=pid===room.chooserId;
   const chooser=room.players.find(p=>p.id===room.chooserId);
@@ -438,23 +355,20 @@ function showChoosing(room){
         <p style="font-family:'Crimson Pro',serif;font-size:.9rem;line-height:1.5;color:#888;margin-bottom:.8rem">
           Choisis <strong style="color:var(--gold)">une photo</strong>. Les enquêteurs devront la retrouver.
         </p>
-        <div class="ggrid" id="ggrid">${gphotos(room,true)}</div>
+        <div class="ggrid">${gphotos(room,true)}</div>
       </div>
       <button class="btn bp" id="btn-elu" disabled>Confirmer l'Élu →</button>
     `);
     let sel=-1;
     document.querySelectorAll('.gp.sel').forEach(el=>{
       el.onclick=()=>{
-        document.querySelectorAll('.gp').forEach(x=>x.classList.remove('chosen'));
-        el.classList.add('chosen');sel=parseInt(el.dataset.i);
+        document.querySelectorAll('.gp').forEach(x=>x.classList.remove('active-elim'));
+        el.classList.add('active-elim');sel=parseInt(el.dataset.i);
         document.getElementById('btn-elu').disabled=false;
       };
     });
     document.getElementById('btn-elu').onclick=async()=>{
-      if(sel<0)return;
-      const d=await getRoom(roomCode);
-      d.eluIndex=sel;d.phase=PHASE.QPICK;
-      await saveRoom(roomCode,d);
+      if(sel<0)return;const d=await getRoom(roomCode);d.eluIndex=sel;d.phase=PHASE.QPICK;await saveRoom(roomCode,d);
     };
   } else {
     html('choosing',`
@@ -462,7 +376,7 @@ function showChoosing(room){
       <div class="card" style="text-align:center">
         <div class="ct">Sélection secrète</div>
         <p style="font-family:'Crimson Pro',serif;font-size:.9rem;line-height:1.5;color:#888">
-          <strong style="color:var(--gold)">${chooser?.name}</strong> est en train de choisir l'Élu en secret…
+          <strong style="color:var(--gold)">${chooser?.name}</strong> choisit l'Élu en secret…
         </p>
         <div style="margin-top:.8rem" class="pulse">Patiente…</div>
       </div>
@@ -471,20 +385,26 @@ function showChoosing(room){
   }
 }
 
-// ── QPICK ────────────────────────────────────────────────────────────────────
+// ── QPICK ─────────────────────────────────────────────────────────────────────
 function showQpick(room){
   const enqId=room.enqueteurs[room.curEnqIdx%room.enqueteurs.length];
   const isEnq=pid===enqId;
   const enqP=room.players.find(p=>p.id===enqId);
   const remaining=room.displayPhotos.length-(room.eliminations||[]).length;
   if(isEnq){
-    const qs=rndQ(4);window._qs=qs;
+    const qs=rndQ(3);window._qs=qs;
     html('qpick',`
-      <div class="rbadge ren">🔍 Ton tour, Enquêteur</div>
+      <div class="rbadge ren">🔍 Ton tour d'enquêter</div>
       <div class="card">
         <div class="ct">Choisis une question</div>
-        <div class="tag" style="margin-bottom:.6rem">${remaining} photo${remaining>1?'s':''} encore en jeu</div>
+        <div class="tag" style="margin-bottom:.8rem">${remaining} photo${remaining>1?'s':''} encore en jeu — Tour ${(room.history||[]).length+1}</div>
         ${qs.map((q,i)=>`<button class="qcard" data-qi="${i}">Est-ce que l'Élu ${q} ?</button>`).join('')}
+        <div class="sep" style="margin:.5rem 0"></div>
+        <p style="font-size:.7rem;color:#555;letter-spacing:.08em;margin-bottom:.4rem">✏️ Ou pose ta propre question :</p>
+        <div class="custom-q-wrap" id="custom-wrap">
+          <span class="custom-q-prefix">Est-ce que l'Élu</span>
+          <input class="custom-q-input" id="custom-q" placeholder="… ?" maxlength="80"/>
+        </div>
       </div>
       <button class="btn bp" id="btn-q" disabled>Poser la question →</button>
     `);
@@ -493,14 +413,19 @@ function showQpick(room){
       btn.onclick=()=>{
         document.querySelectorAll('.qcard').forEach(x=>x.classList.remove('qsel'));
         btn.classList.add('qsel');selQ=qs[parseInt(btn.dataset.qi)];
+        document.getElementById('custom-q').value='';
+        document.getElementById('custom-wrap').style.borderColor='';
         document.getElementById('btn-q').disabled=false;
       };
     });
+    document.getElementById('custom-q').addEventListener('input',e=>{
+      const v=e.target.value.trim();
+      document.querySelectorAll('.qcard').forEach(x=>x.classList.remove('qsel'));
+      if(v){selQ=v;document.getElementById('btn-q').disabled=false;}
+      else{selQ='';document.getElementById('btn-q').disabled=true;}
+    });
     document.getElementById('btn-q').onclick=async()=>{
-      if(!selQ)return;
-      const d=await getRoom(roomCode);
-      d.question=selQ;d.phase=PHASE.QREV;
-      await saveRoom(roomCode,d);
+      if(!selQ)return;const d=await getRoom(roomCode);d.question=selQ;d.phase=PHASE.QREV;await saveRoom(roomCode,d);
     };
   } else {
     html('qpick',`
@@ -516,31 +441,25 @@ function showQpick(room){
   }
 }
 
-// ── QREV ────────────────────────────────────────────────────────────────────
+// ── QREV ──────────────────────────────────────────────────────────────────────
 function showQrev(room){
   const isChooser=pid===room.chooserId;
   const chooser=room.players.find(p=>p.id===room.chooserId);
   html('qrev',`
     <div class="card">
-      <div class="ct">La Question des Enquêteurs</div>
+      <div class="ct">La Question</div>
       <div class="rbox"><div class="rq" style="font-size:1.05rem">Est-ce que l'Élu ${room.question} ?</div></div>
-      <div style="margin-top:.75rem;color:#555;font-size:.72rem;text-align:center;letter-spacing:.08em">
+      <div style="margin-top:.75rem;color:#555;font-size:.72rem;text-align:center">
         ${isChooser?`C'est ton heure de répondre.`:`${chooser?.name} va répondre…`}
       </div>
     </div>
     <div class="card"><div class="ggrid">${gphotos(room,false)}</div></div>
-    ${isChooser
-      ?`<button class="btn bp" id="btn-toans">Répondre →</button>`
-      :`<div class="pulse">En attente de la réponse…</div>`}
+    ${isChooser?`<button class="btn bp" id="btn-toans">Répondre →</button>`:`<div class="pulse">En attente de la réponse…</div>`}
   `);
-  if(isChooser){
-    document.getElementById('btn-toans').onclick=async()=>{
-      const d=await getRoom(roomCode);d.phase=PHASE.ANS;await saveRoom(roomCode,d);
-    };
-  }
+  if(isChooser) document.getElementById('btn-toans').onclick=async()=>{const d=await getRoom(roomCode);d.phase=PHASE.ANS;await saveRoom(roomCode,d)};
 }
 
-// ── ANS ──────────────────────────────────────────────────────────────────────
+// ── ANS ───────────────────────────────────────────────────────────────────────
 function showAns(room){
   const isChooser=pid===room.chooserId;
   if(isChooser){
@@ -557,11 +476,7 @@ function showAns(room){
       </div>
     `);
     document.querySelectorAll('.abtn').forEach(btn=>{
-      btn.onclick=async()=>{
-        const d=await getRoom(roomCode);
-        d.answer=btn.dataset.a;d.phase=PHASE.ANSREV;
-        await saveRoom(roomCode,d);
-      };
+      btn.onclick=async()=>{const d=await getRoom(roomCode);d.answer=btn.dataset.a;d.phase=PHASE.ANSREV;await saveRoom(roomCode,d)};
     });
   } else {
     html('ans',`
@@ -575,14 +490,15 @@ function showAns(room){
   }
 }
 
-// ── ANSREV ───────────────────────────────────────────────────────────────────
+// ── ANSREV ────────────────────────────────────────────────────────────────────
 function showAnsrev(room){
   const isChooser=pid===room.chooserId;
+  const activeEnqId=room.enqueteurs[room.curEnqIdx%room.enqueteurs.length];
   const ac=room.answer==='oui'?'a-oui':room.answer==='non'?'a-non':'a-dk';
   const label=room.answer==='ne sait pas'?'NE SAIT PAS':room.answer.toUpperCase();
   html('ansrev',`
     <div class="card">
-      <div class="ct">Réponse de Celui qui Choisit</div>
+      <div class="ct">Réponse</div>
       <div class="rbox">
         <div class="rq">Est-ce que l'Élu ${room.question} ?</div>
         <div class="ra ${ac}">${label}</div>
@@ -590,56 +506,77 @@ function showAnsrev(room){
     </div>
     <div class="card"><div class="ggrid">${gphotos(room,false)}</div></div>
     ${!isChooser
-      ?`<button class="btn bgold" id="btn-elim">Passer à l'élimination →</button>`
-      :`<div class="pulse">Les enquêteurs discutent…</div>`}
+      ?`<button class="btn bgold" id="btn-elim" ${pid===activeEnqId?'':'disabled'}>
+          ${pid===activeEnqId?'Passer à l\'élimination →':'En attente de l\'enquêteur actif…'}
+        </button>`
+      :`<div class="pulse">Les enquêteurs discutent entre eux…</div>`}
   `);
-  if(!isChooser){
-    const activeEnqId=room.enqueteurs[room.curEnqIdx%room.enqueteurs.length];
-    const btn=document.getElementById('btn-elim');
-    if(pid!==activeEnqId){btn.disabled=true;btn.textContent="En attente de l'enquêteur actif…";}
-    else{btn.onclick=async()=>{const d=await getRoom(roomCode);d.phase=PHASE.ELIM;d.pendingElim=[];await saveRoom(roomCode,d);};}
+  if(!isChooser&&pid===activeEnqId){
+    document.getElementById('btn-elim').onclick=async()=>{
+      const d=await getRoom(roomCode);d.phase=PHASE.ELIM;d.pendingElim=[];d.suggestions={};await saveRoom(roomCode,d);
+    };
   }
 }
 
-// ── ELIM ─────────────────────────────────────────────────────────────────────
+// ── ELIM ──────────────────────────────────────────────────────────────────────
 function showElim(room){
   const isChooser=pid===room.chooserId;
   const activeEnqId=room.enqueteurs[room.curEnqIdx%room.enqueteurs.length];
   const isActiveEnq=pid===activeEnqId;
   const activeEnqName=room.players.find(p=>p.id===activeEnqId)?.name||'?';
   const pending=room.pendingElim||[];
+  const suggestions=room.suggestions||{};
   const ac=room.answer==='oui'?'a-oui':room.answer==='non'?'a-non':'a-dk';
   const label=room.answer==='ne sait pas'?'NE SAIT PAS':room.answer.toUpperCase();
-  const selCount=pending.length;
+  // Légende des enquêteurs spectateurs
+  const spectEnqs=room.enqueteurs.filter(id=>id!==activeEnqId);
+  const legendHTML=spectEnqs.length>0?`<div class="legend">${spectEnqs.map(id=>{
+    const p=room.players.find(x=>x.id===id);
+    return `<div class="legend-item"><div class="legend-dot" style="background:${pColor(room,id)}"></div>${p?.name||'?'}</div>`;
+  }).join('')}</div>`:'';
 
-  // ── VUE SPECTATEUR (Celui qui choisit + enquêteurs non-actifs) ──
+  // ── SPECTATEURS (chooser + enquêteurs non-actifs) ─────────────────────────
   if(!isActiveEnq){
+    const mySugg=isChooser?[]:(suggestions[pid]||[]);
     html('elim',`
-      <div class="rbadge ${isChooser?'rch':'ren'}">${isChooser?'👑 Celui qui Choisit':'🔍 Enquêteur — Spectateur'}</div>
+      <div class="rbadge ${isChooser?'rch':'ren'}">${isChooser?'👑 Celui qui Choisit':'🔍 Tes suggestions'}</div>
       <div class="rbox" style="margin-bottom:0">
         <div class="rq">Est-ce que l'Élu ${room.question} ?</div>
         <div class="ra ${ac}">${label}</div>
       </div>
       <div class="card">
-        <div class="ct">Sélection de ${activeEnqName}</div>
-        <p style="font-family:'Crimson Pro',serif;font-size:.85rem;color:#666;margin-bottom:.75rem">
-          ${isChooser
-            ?`<span style="color:var(--red)">Croise les doigts…</span>`
-            :`Discutez entre vous ! ${activeEnqName} fait la sélection finale.`}
-        </p>
-        <div class="ggrid">${gphotos(room,false,pending)}</div>
-        <div class="vote-count" style="margin-top:.5rem">
-          ${selCount>0
-            ?`<span style="color:var(--red)">${selCount} photo${selCount>1?'s':''} sélectionnée${selCount>1?'s':''}</span> — en attente de confirmation…`
-            :`<span style="color:#444">Aucune photo sélectionnée pour l'instant…</span>`}
+        <div class="ct">${isChooser?`Sélection de ${activeEnqName}`:`Suggère des photos à ${activeEnqName}`}</div>
+        ${!isChooser?`<p style="font-family:'Crimson Pro',serif;font-size:.82rem;color:#666;margin-bottom:.6rem">
+          Touche les photos pour suggérer — ta coche apparaît sur l'écran de ${activeEnqName}.
+        </p>`:''}
+        ${legendHTML}
+        <div class="ggrid" style="margin-top:.4rem">${gphotosElim(room,!isChooser,pending,suggestions,mySugg,false)}</div>
+        <div class="vcount" style="margin-top:.5rem">
+          ${pending.length>0
+            ?`<span style="color:var(--red)">${pending.length} photo${pending.length>1?'s':''} sélectionnée${pending.length>1?'s':''} par ${activeEnqName}</span>`
+            :`<span style="color:#444">Aucune sélection pour l'instant…</span>`}
         </div>
       </div>
       <div class="pulse">En attente de ${activeEnqName}…</div>
     `);
+    // Bind suggestions (enquêteurs non-actifs seulement)
+    if(!isChooser){
+      localSuggestions=[...(suggestions[pid]||[])];
+      document.querySelectorAll('.gp.suggerable').forEach(el=>{
+        el.onclick=async()=>{
+          const i=parseInt(el.dataset.i);
+          if(localSuggestions.includes(i))localSuggestions=localSuggestions.filter(x=>x!==i);
+          else localSuggestions.push(i);
+          const d=await getRoom(roomCode);
+          if(!d.suggestions)d.suggestions={};
+          d.suggestions[pid]=localSuggestions;await saveRoom(roomCode,d);
+        };
+      });
+    }
     return;
   }
 
-  // ── VUE ENQUÊTEUR ACTIF ──
+  // ── ENQUÊTEUR ACTIF ───────────────────────────────────────────────────────
   html('elim',`
     <div class="rbadge ren">🔍 C'est ton tour d'éliminer</div>
     <div class="rbox" style="margin-bottom:0">
@@ -647,69 +584,55 @@ function showElim(room){
       <div class="ra ${ac}">${label}</div>
     </div>
     <div class="card">
-      <div class="ct">Sélectionne les photos à éliminer</div>
-      <p style="font-family:'Crimson Pro',serif;font-size:.85rem;color:#666;margin-bottom:.75rem">
-        Élimine celles qui correspondent le <strong>moins</strong> à la réponse. (min. 1)<br/>
-        <span style="color:#555;font-size:.8rem">Les autres joueurs voient ta sélection en direct.</span>
+      <div class="ct">Élimine des photos</div>
+      <p style="font-family:'Crimson Pro',serif;font-size:.82rem;color:#666;margin-bottom:.6rem">
+        Les coches colorées = suggestions des autres enquêteurs. Min. 1 photo.
       </p>
-      <div class="ggrid" id="egrid">${gphotos(room,true,pending)}</div>
-      <div class="vote-count" id="vinfo">
-        ${selCount>0?`${selCount} photo${selCount>1?'s':''} sélectionnée${selCount>1?'s':'`'}…`:'0 photo sélectionnée'}
-      </div>
+      ${legendHTML}
+      <div class="ggrid" style="margin-top:.4rem">${gphotosElim(room,true,pending,suggestions,[],true)}</div>
+      <div class="vcount" id="vinfo">${pending.length>0?`${pending.length} photo${pending.length>1?'s':''} sélectionnée${pending.length>1?'s':''}…`:'0 photo sélectionnée'}</div>
     </div>
-    <button class="btn bd" id="btn-elim-ok" ${selCount>0?'':'disabled'}>Confirmer l'élimination</button>
+    <button class="btn bd" id="btn-elim-ok" ${pending.length>0?'':'disabled'}>Confirmer l'élimination</button>
   `);
-
-  // Sync local state from Firestore pendingElim
   localVotes=[...pending];
-
   document.querySelectorAll('.gp.sel').forEach(el=>{
     el.onclick=async()=>{
       const i=parseInt(el.dataset.i);
-      if(localVotes.includes(i)){localVotes=localVotes.filter(x=>x!==i);}
-      else{localVotes.push(i);}
-      // Update vinfo locally for instant feedback
+      if(localVotes.includes(i))localVotes=localVotes.filter(x=>x!==i);
+      else localVotes.push(i);
       const n=localVotes.length;
       document.getElementById('vinfo').textContent=`${n} photo${n>1?'s':''} sélectionnée${n>1?'s':''}`;
       document.getElementById('btn-elim-ok').disabled=n===0;
-      // Sync selection to Firestore so others see it live
-      const d=await getRoom(roomCode);
-      d.pendingElim=localVotes;
-      await saveRoom(roomCode,d);
+      const d=await getRoom(roomCode);d.pendingElim=localVotes;await saveRoom(roomCode,d);
     };
   });
-
   document.getElementById('btn-elim-ok').onclick=async()=>{
     if(localVotes.length===0)return;
     const d=await getRoom(roomCode);
-    const toElim=localVotes;
-    const newElims=[...(d.eliminations||[]),...toElim];
-    d.pendingElim=[];
+    const toElim=localVotes;const newElims=[...(d.eliminations||[]),...toElim];
+    d.pendingElim=[];d.suggestions={};
     if(toElim.includes(d.eluIndex)){
       d.eliminations=newElims;d.winner='chooser';d.phase=PHASE.END;
     } else {
       const rem=d.displayPhotos.filter((_,i)=>!newElims.includes(i));
       if(rem.length<=1){d.eliminations=newElims;d.winner='enqueteurs';d.phase=PHASE.END;}
-      else{
-        d.eliminations=newElims;d.curEnqIdx=(d.curEnqIdx||0)+1;
-        d.history=[...(d.history||[]),{q:d.question,a:d.answer}];
-        d.question='';d.answer='';d.phase=PHASE.QPICK;
-      }
+      else{d.eliminations=newElims;d.curEnqIdx=(d.curEnqIdx||0)+1;d.history=[...(d.history||[]),{q:d.question,a:d.answer}];d.question='';d.answer='';d.phase=PHASE.QPICK;}
     }
     await saveRoom(roomCode,d);
   };
 }
 
-// ── END ──────────────────────────────────────────────────────────────────────
+// ── END ───────────────────────────────────────────────────────────────────────
 function showEnd(room){
   const isChooser=pid===room.chooserId;
   const enqWin=room.winner==='enqueteurs';
   const iWin=(enqWin&&!isChooser)||(!enqWin&&isChooser);
   const chooser=room.players.find(p=>p.id===room.chooserId);
   const eluPhoto=room.displayPhotos[room.eluIndex];
-  const hist=(room.history||[]).map((r,i)=>`
-    <div class="hrow"><span>Tour ${i+1}</span> — ${r.q} ? → <strong>${r.a==='ne sait pas'?'NSP':r.a.toUpperCase()}</strong></div>
-  `).join('')||'<div style="color:#444;font-size:.75rem">Partie express !</div>';
+  const poolSize=(room.photoPool||[]).length;
+  const me=room.players.find(p=>p.id===pid);
+  const hist=(room.history||[]).map((r,i)=>`<div class="hrow"><span>Tour ${i+1}</span> — ${r.q} ? → <strong>${r.a==='ne sait pas'?'NSP':r.a.toUpperCase()}</strong></div>`).join('')
+    ||'<div style="color:#444;font-size:.75rem">Partie express !</div>';
   html('end',`
     <div class="etitle ${iWin?'ewin':'elose'}">${iWin?'🏆 Victoire !':'💀 Défaite'}</div>
     <div style="font-family:'Crimson Pro',serif;font-size:1.05rem;text-align:center;line-height:1.7;color:#aaa">
@@ -719,8 +642,7 @@ function showEnd(room){
           ?`Les Enquêteurs ont éliminé l'Élu par erreur…<br/><strong style="color:var(--gold)">${chooser?.name}</strong> a gagné !`
           :`Fin de partie.`}
     </div>
-    ${eluPhoto?`
-    <div class="card" style="text-align:center">
+    ${eluPhoto?`<div class="card" style="text-align:center">
       <div class="ct">L'Élu était…</div>
       <div style="width:150px;height:150px;margin:0 auto;border-radius:4px;overflow:hidden;border:2px solid var(--gold)">
         <img src="${eluPhoto.src}" style="width:100%;height:100%;object-fit:cover"/>
@@ -728,40 +650,69 @@ function showEnd(room){
       <div style="margin-top:.5rem;font-family:'Bebas Neue',sans-serif;color:var(--gold);font-size:1.1rem;letter-spacing:.1em">Photo #${room.eluIndex+1}</div>
     </div>`:''}
     <div class="card">
-      <div class="ct">Résumé de la partie</div>
+      <div class="ct">Résumé — Manche ${room.manche}</div>
       <div class="hlog">${hist}</div>
     </div>
-    ${isChooser||room.players.find(p=>p.id===pid)?.isHost
-      ?`<button class="btn bp" id="btn-restart">🔄 Rejouer</button>`:''
-    }
+    ${poolSize>0?`<div class="pool-info">♻️ <strong>${poolSize}</strong> photo${poolSize>1?'s':''} en réserve pour la manche suivante</div>`:''}
+    ${me?.isHost?`<div class="btn-row">
+      <button class="btn bp" id="btn-next">⚔ Manche ${room.manche+1}</button>
+      <button class="btn bg" id="btn-restart">↺ Reset</button>
+    </div>`:`<div class="pulse">En attente de l'host…</div>`}
   `);
+  document.getElementById('btn-next')?.addEventListener('click',async()=>{
+    const d=await getRoom(roomCode);
+    Object.assign(d,{phase:PHASE.UPLOAD,manche:(d.manche||1)+1,displayPhotos:[],eluIndex:-1,chooserId:'',
+      enqueteurs:[],curEnqIdx:0,question:'',answer:'',eliminations:[],history:[],winner:'',
+      pendingElim:[],suggestions:{},players:d.players.map(p=>({...p,photos:[],ready:false}))});
+    await saveRoom(roomCode,d);
+  });
   document.getElementById('btn-restart')?.addEventListener('click',async()=>{
     const d=await getRoom(roomCode);
-    Object.assign(d,{phase:PHASE.LOBBY,displayPhotos:[],eluIndex:-1,chooserId:'',enqueteurs:[],
-      curEnqIdx:0,question:'',answer:'',eliminations:[],history:[],winner:'',elimChoices:{},
-      players:d.players.map(p=>({...p,photos:[],ready:false}))});
+    Object.assign(d,{phase:PHASE.LOBBY,manche:1,photoPool:[],displayPhotos:[],eluIndex:-1,chooserId:'',
+      enqueteurs:[],curEnqIdx:0,question:'',answer:'',eliminations:[],history:[],winner:'',
+      pendingElim:[],suggestions:{},players:d.players.map(p=>({...p,photos:[],ready:false}))});
     await saveRoom(roomCode,d);
   });
 }
 
-// ── HELPERS ──────────────────────────────────────────────────────────────────
-function gphotos(room,selectable=false,pending=[]){
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function gphotos(room,selectable=false){
   const elims=room.eliminations||[];
   return (room.displayPhotos||[]).map((p,i)=>{
     const isElim=elims.includes(i);
-    const isPending=pending.includes(i);
-    let cls='gp';
-    if(selectable&&!isElim)cls+=' sel';
-    if(isElim)cls+=' elim';
-    if(isPending)cls+=' chosen';
+    let cls='gp';if(selectable&&!isElim)cls+=' sel';if(isElim)cls+=' elim';
     return `<div class="${cls}" data-i="${i}"><img src="${p.src}"/><div class="pnum">${i+1}</div></div>`;
   }).join('');
 }
 
-// ── INIT ─────────────────────────────────────────────────────────────────────
-document.getElementById('loading').style.display='none';
-showHome();
+function gphotosElim(room,canSuggest,pending,suggestions,mySugg,isActiveEnq){
+  const elims=room.eliminations||[];
+  return (room.displayPhotos||[]).map((p,i)=>{
+    const isElim=elims.includes(i);
+    const isPending=pending.includes(i);
+    const isMyS=mySugg.includes(i);
+    // Dots colorés des enquêteurs qui suggèrent cette photo
+    const dots=Object.entries(suggestions)
+      .filter(([sid,votes])=>Array.isArray(votes)&&votes.includes(i))
+      .map(([sid])=>`<div class="sdot" style="background:${pColor(room,sid)}"></div>`).join('');
+    let cls='gp';
+    if(isActiveEnq&&!isElim)cls+=' sel';
+    else if(canSuggest&&!isElim)cls+=' suggerable';
+    if(isElim)cls+=' elim';
+    if(isPending||isMyS)cls+=' active-elim';
+    // Bordure de la couleur du joueur si c'est sa suggestion
+    const borderStyle=isMyS&&!isPending?`style="border-color:${pColor(room,pid)};box-shadow:0 0 6px ${pColor(room,pid)}60"`:
+      isPending?`style="border-color:var(--red)"`:''
+    return `<div class="${cls}" data-i="${i}" ${borderStyle}><img src="${p.src}"/>
+      <div class="pnum">${i+1}</div>
+      ${dots?`<div class="sdots">${dots}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
 document.getElementById('hdr').style.display='';
+showHome();
 </script>
 </body>
 </html>
