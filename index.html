@@ -4,22 +4,29 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 <title>Le Jour du Jugement</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=Crimson+Pro:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;background:#0a0a0a;overscroll-behavior:none}
 body{font-family:'IBM Plex Mono',monospace;color:#f0e8d8;min-height:100vh;overflow-x:hidden}
-:root{--black:#0a0a0a;--red:#c8102e;--red-dark:#8a0b1e;--gold:#d4a843;--cream:#f0e8d8;--gray:#222;--gray2:#1a1a1a}
-body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");opacity:.5}
-#hdr{background:#0d0d0d;border-bottom:1px solid #1e1e1e;padding:1.2rem 1rem .9rem;text-align:center;position:relative}
+:root{--red:#c8102e;--red-dark:#8a0b1e;--gold:#d4a843;--cream:#f0e8d8;--gray2:#1a1a1a}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:800;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");opacity:.5}
+
+/* ── HEADER ── */
+#hdr{background:#0d0d0d;border-bottom:1px solid #1e1e1e;padding:1rem 1rem .8rem;text-align:center;position:relative}
 #hdr::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:48px;height:2px;background:var(--red)}
-#hdr h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,7vw,3.5rem);letter-spacing:.06em;line-height:1;text-shadow:0 0 40px rgba(200,16,46,.35)}
-#hdr p{font-family:'Crimson Pro',serif;font-style:italic;color:var(--gold);font-size:.78rem;letter-spacing:.18em;margin-top:.2rem}
-.scr{max-width:480px;margin:0 auto;padding:1.5rem 1rem 3rem;display:flex;flex-direction:column;gap:1rem;align-items:center}
+#hdr h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,6vw,3rem);letter-spacing:.06em;line-height:1;text-shadow:0 0 40px rgba(200,16,46,.35)}
+#hdr p{font-family:'Crimson Pro',serif;font-style:italic;color:var(--gold);font-size:.75rem;letter-spacing:.18em;margin-top:.2rem}
+
+/* ── SCREEN ── */
+.scr{max-width:480px;margin:0 auto;padding:1.2rem 1rem 6rem;display:flex;flex-direction:column;gap:1rem;align-items:center}
+
+/* ── CARD ── */
 .card{background:var(--gray2);border:1px solid #252525;border-radius:4px;padding:1.2rem;width:100%}
-.ct{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:.12em;color:var(--gold);margin-bottom:.75rem;border-bottom:1px solid #252525;padding-bottom:.4rem}
-.btn{font-family:'IBM Plex Mono',monospace;font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.85rem 1.5rem;border:none;cursor:pointer;border-radius:2px;transition:all .15s;display:block;width:100%;text-align:center}
+.ct{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.12em;color:var(--gold);margin-bottom:.7rem;border-bottom:1px solid #252525;padding-bottom:.35rem}
+
+/* ── BUTTONS ── */
+.btn{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.8rem 1.4rem;border:none;cursor:pointer;border-radius:2px;transition:all .15s;display:block;width:100%;text-align:center}
 .bp{background:var(--red);color:var(--cream)}.bp:hover{background:var(--red-dark)}.bp:active{transform:scale(.98)}
 .bg{background:transparent;color:var(--cream);border:1px solid #3a3a3a}.bg:hover{border-color:var(--gold);color:var(--gold)}
 .bgold{background:var(--gold);color:#0a0a0a}.bgold:hover{background:#e8bc55}
@@ -27,89 +34,213 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
 .btn:disabled{opacity:.28;cursor:not-allowed;transform:none!important}
 .btn-row{display:flex;gap:.5rem;width:100%}
 .btn-row .btn{flex:1}
-.inp{font-family:'IBM Plex Mono',monospace;font-size:.9rem;background:#1e1e1e;border:1px solid #333;color:var(--cream);padding:.7rem .9rem;border-radius:2px;width:100%;outline:none;transition:border-color .15s}
+
+/* ── INPUT ── */
+.inp{font-family:'IBM Plex Mono',monospace;font-size:.88rem;background:#1e1e1e;border:1px solid #333;color:var(--cream);padding:.65rem .9rem;border-radius:2px;width:100%;outline:none;transition:border-color .15s}
 .inp:focus{border-color:var(--gold)}
 .inp::placeholder{color:#444}
-label{font-size:.65rem;letter-spacing:.14em;color:#555;display:block;margin-bottom:.35rem}
+label{font-size:.63rem;letter-spacing:.14em;color:#555;display:block;margin-bottom:.3rem}
+
+/* ── MISC ── */
 .code-big{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;letter-spacing:.35em;color:var(--gold);text-align:center;text-shadow:0 0 30px rgba(212,168,67,.28)}
-.prow{display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;background:#1e1e1e;border-radius:2px;font-size:.78rem}
+.prow{display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;background:#1e1e1e;border-radius:2px;font-size:.76rem}
 .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.bdg{font-size:.58rem;letter-spacing:.1em;padding:.15rem .4rem;border-radius:2px;text-transform:uppercase;margin-left:auto;white-space:nowrap}
-.b-host{background:var(--red);color:var(--cream)}
-.b-ready{background:#112211;color:#4caf50;border:1px solid #2a5a2a}
-.b-wait{background:#181818;color:#555;border:1px solid #2a2a2a}
+.bdg{font-size:.56rem;letter-spacing:.1em;padding:.15rem .4rem;border-radius:2px;text-transform:uppercase;margin-left:auto;white-space:nowrap}
+.b-host{background:var(--red);color:var(--cream)}.b-ready{background:#112211;color:#4caf50;border:1px solid #2a5a2a}.b-wait{background:#181818;color:#555;border:1px solid #2a2a2a}
 .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
 .pslot{aspect-ratio:1;background:#1e1e1e;border:1px dashed #333;border-radius:3px;display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;position:relative;color:#444;font-size:1.4rem;transition:border-color .15s}
-.pslot:hover{border-color:var(--gold)}
-.pslot img{width:100%;height:100%;object-fit:cover}
+.pslot:hover{border-color:var(--gold)}.pslot img{width:100%;height:100%;object-fit:cover}
 .pslot .rx{position:absolute;top:3px;right:3px;background:rgba(200,16,46,.92);color:#fff;border:none;border-radius:2px;width:20px;height:20px;font-size:.6rem;cursor:pointer;align-items:center;justify-content:center;display:none}
 .pslot:hover .rx{display:flex}
+
+/* ── GAME GRID ── */
 .ggrid{display:grid;grid-template-columns:repeat(4,1fr);gap:.45rem}
-.gp{aspect-ratio:1;border-radius:3px;overflow:hidden;position:relative;border:2px solid transparent;transition:border-color .2s,opacity .3s,transform .2s;cursor:default}
+.gp{aspect-ratio:1;border-radius:3px;overflow:hidden;position:relative;border:2px solid transparent;transition:border-color .2s,opacity .3s,transform .2s;cursor:pointer}
 .gp img{width:100%;height:100%;object-fit:cover;display:block}
-.gp.sel{cursor:pointer}.gp.sel:hover{border-color:var(--gold);transform:scale(1.03)}
+.gp.no-zoom{cursor:default}
+.gp.sel:hover{border-color:var(--gold);transform:scale(1.04)}
 .gp.elim{opacity:.1;filter:grayscale(1);pointer-events:none;transform:none!important}
 .gp.active-elim{border-color:var(--red)!important;box-shadow:0 0 8px rgba(200,16,46,.4)}
 .gp.active-elim::before{content:'✕';position:absolute;top:3px;right:3px;background:var(--red);color:#fff;font-size:.55rem;width:15px;height:15px;border-radius:2px;display:flex;align-items:center;justify-content:center;font-weight:bold;z-index:2}
 .pnum{position:absolute;bottom:3px;left:3px;background:rgba(0,0,0,.72);color:var(--gold);font-size:.55rem;padding:1px 3px;font-family:'Bebas Neue',sans-serif;letter-spacing:.08em;z-index:1}
 .sdots{position:absolute;top:3px;left:3px;display:flex;gap:2px;flex-wrap:wrap;max-width:65%;z-index:2}
 .sdot{width:9px;height:9px;border-radius:50%;border:1px solid rgba(0,0,0,.5);flex-shrink:0}
-.rbadge{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.15em;padding:.5rem 1.5rem;border-radius:3px;text-align:center;width:100%}
-.rch{background:var(--red);color:var(--cream)}
-.ren{background:#111;color:var(--gold);border:1px solid #333}
-.qcard{background:#1e1e1e;border:1px solid #2e2e2e;border-radius:3px;padding:.85rem 1rem;cursor:pointer;font-family:'Crimson Pro',serif;font-size:.95rem;color:var(--cream);transition:all .15s;text-align:left;line-height:1.45;width:100%;display:block;margin-bottom:.4rem}
-.qcard:hover{border-color:var(--gold);background:#242424}
-.qcard.qsel{border-color:var(--red);background:#1a0508;color:var(--red)}
-.rbox{background:#0d0d0d;border:1px solid var(--gold);border-radius:4px;padding:1.3rem;text-align:center;width:100%}
+.zoom-hint{position:absolute;bottom:3px;right:3px;background:rgba(0,0,0,.6);color:#888;font-size:.5rem;padding:1px 3px;border-radius:2px;z-index:1;pointer-events:none}
+
+/* ── ROLE BADGE ── */
+.rbadge{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.15em;padding:.5rem 1.5rem;border-radius:3px;text-align:center;width:100%}
+.rch{background:var(--red);color:var(--cream)}.ren{background:#111;color:var(--gold);border:1px solid #333}
+
+/* ── QUESTION ── */
+.qcard{background:#1e1e1e;border:1px solid #2e2e2e;border-radius:3px;padding:.8rem 1rem;cursor:pointer;font-family:'Crimson Pro',serif;font-size:.93rem;color:var(--cream);transition:all .15s;text-align:left;line-height:1.45;width:100%;display:block;margin-bottom:.4rem}
+.qcard:hover{border-color:var(--gold);background:#242424}.qcard.qsel{border-color:var(--red);background:#1a0508;color:var(--red)}
+.custom-q-wrap{display:flex;align-items:center;gap:.5rem;background:#1e1e1e;border:1px solid #2e2e2e;border-radius:3px;padding:.7rem 1rem;margin-bottom:.4rem;transition:border-color .15s}
+.custom-q-wrap:focus-within{border-color:var(--gold)}
+.custom-q-prefix{font-family:'Crimson Pro',serif;font-size:.88rem;color:#555;white-space:nowrap;font-style:italic;flex-shrink:0}
+.custom-q-input{font-family:'Crimson Pro',serif;font-size:.93rem;color:var(--cream);background:transparent;border:none;outline:none;flex:1;min-width:0}
+.custom-q-input::placeholder{color:#444;font-style:italic}
+
+/* ── REVEAL ── */
+.rbox{background:#0d0d0d;border:1px solid var(--gold);border-radius:4px;padding:1.2rem;text-align:center;width:100%}
 .rq{font-family:'Crimson Pro',serif;font-style:italic;font-size:1rem;color:var(--cream);margin-bottom:.5rem;line-height:1.4}
-.ra{font-family:'Bebas Neue',sans-serif;font-size:2.3rem;letter-spacing:.15em}
-.a-oui{color:#4caf50;text-shadow:0 0 15px rgba(76,175,80,.4)}
-.a-non{color:var(--red);text-shadow:0 0 15px rgba(200,16,46,.4)}
-.a-dk{color:var(--gold);text-shadow:0 0 15px rgba(212,168,67,.4)}
+.ra{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.15em}
+.a-oui{color:#4caf50;text-shadow:0 0 15px rgba(76,175,80,.4)}.a-non{color:var(--red);text-shadow:0 0 15px rgba(200,16,46,.4)}.a-dk{color:var(--gold);text-shadow:0 0 15px rgba(212,168,67,.4)}
 .abtns{display:flex;gap:.5rem;width:100%}
-.abtn{flex:1;padding:.9rem .5rem;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.1em;border:none;border-radius:3px;cursor:pointer;transition:all .15s}
+.abtn{flex:1;padding:.85rem .5rem;font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:.1em;border:none;border-radius:3px;cursor:pointer;transition:all .15s}
 .ay{background:#112211;color:#4caf50;border:1px solid #2a5a2a}.ay:hover{background:#4caf50;color:#0a0a0a}
 .an{background:#220a0a;color:var(--red);border:1px solid #5a1a1a}.an:hover{background:var(--red);color:var(--cream)}
 .adk{background:#1e1a08;color:var(--gold);border:1px solid #4a3a15}.adk:hover{background:var(--gold);color:#0a0a0a}
+
+/* ── PROGRESS ── */
 .pbar{width:100%;height:3px;background:#1e1e1e;border-radius:2px;overflow:hidden;margin-bottom:.8rem}
 .pfill{height:100%;background:var(--red);transition:width .4s}
-.pulse{display:flex;align-items:center;justify-content:center;gap:.5rem;color:#555;font-size:.72rem;letter-spacing:.08em}
+.pulse{display:flex;align-items:center;justify-content:center;gap:.5rem;color:#555;font-size:.7rem;letter-spacing:.08em}
 .pulse::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pu 1.5s ease-in-out infinite}
 @keyframes pu{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1)}}
+
+/* ── END / MISC ── */
 .etitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,10vw,4rem);letter-spacing:.1em;line-height:1;text-align:center}
-.ewin{color:var(--gold);text-shadow:0 0 40px rgba(212,168,67,.4)}
-.elose{color:var(--red);text-shadow:0 0 40px rgba(200,16,46,.4)}
-.manche-badge{font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.18em;color:#555;text-align:center;padding:.3rem .8rem;border:1px solid #252525;border-radius:2px;background:#111;width:100%}
+.ewin{color:var(--gold);text-shadow:0 0 40px rgba(212,168,67,.4)}.elose{color:var(--red);text-shadow:0 0 40px rgba(200,16,46,.4)}
+.manche-badge{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.18em;color:#555;text-align:center;padding:.3rem .8rem;border:1px solid #252525;border-radius:2px;background:#111;width:100%}
 .legend{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.6rem}
-.legend-item{display:flex;align-items:center;gap:.35rem;font-size:.65rem;color:#777;letter-spacing:.05em}
+.legend-item{display:flex;align-items:center;gap:.35rem;font-size:.63rem;color:#777;letter-spacing:.05em}
 .legend-dot{width:10px;height:10px;border-radius:50%;border:1px solid rgba(0,0,0,.3);flex-shrink:0}
-.hint{font-size:.68rem;color:#444;text-align:center;letter-spacing:.08em;line-height:1.65}
-.err{color:var(--red);font-size:.75rem;text-align:center;min-height:1.2rem;letter-spacing:.05em}
+.hint{font-size:.66rem;color:#444;text-align:center;letter-spacing:.08em;line-height:1.65}
+.err{color:var(--red);font-size:.73rem;text-align:center;min-height:1.2rem;letter-spacing:.05em}
 .sep{width:100%;height:1px;background:#1e1e1e}
-.tag{font-size:.65rem;letter-spacing:.1em;color:#555;text-transform:uppercase}
-.hlog{max-height:120px;overflow-y:auto;display:flex;flex-direction:column;gap:.3rem}
-.hrow{font-size:.72rem;border-bottom:1px solid #1e1e1e;padding:.35rem 0;color:#777;line-height:1.4}
-.hrow span{color:var(--gold)}
-.vcount{font-size:.68rem;color:#555;text-align:center;margin-top:.4rem;letter-spacing:.1em}
-.pool-info{background:#111;border:1px solid #252525;border-radius:3px;padding:.6rem .9rem;font-size:.72rem;color:#666;letter-spacing:.08em;width:100%;text-align:center}
+.tag{font-size:.63rem;letter-spacing:.1em;color:#555;text-transform:uppercase}
+.hlog{max-height:110px;overflow-y:auto;display:flex;flex-direction:column;gap:.3rem}
+.hrow{font-size:.7rem;border-bottom:1px solid #1e1e1e;padding:.3rem 0;color:#777;line-height:1.4}.hrow span{color:var(--gold)}
+.vcount{font-size:.66rem;color:#555;text-align:center;margin-top:.4rem;letter-spacing:.1em}
+.pool-info{background:#111;border:1px solid #252525;border-radius:3px;padding:.55rem .9rem;font-size:.7rem;color:#666;letter-spacing:.08em;width:100%;text-align:center}
 .pool-info strong{color:var(--gold)}
-.custom-q-wrap{display:flex;align-items:center;gap:.5rem;background:#1e1e1e;border:1px solid #2e2e2e;border-radius:3px;padding:.7rem 1rem;margin-bottom:.4rem;transition:border-color .15s}
-.custom-q-wrap:focus-within{border-color:var(--gold)}
-.custom-q-prefix{font-family:'Crimson Pro',serif;font-size:.9rem;color:#555;white-space:nowrap;font-style:italic;flex-shrink:0}
-.custom-q-input{font-family:'Crimson Pro',serif;font-size:.95rem;color:var(--cream);background:transparent;border:none;outline:none;flex:1;min-width:0}
-.custom-q-input::placeholder{color:#444;font-style:italic}
+
+/* ══════════════════════════════════════════════════════
+   💬 CHAT DRAWER
+══════════════════════════════════════════════════════ */
+#chat-fab{position:fixed;bottom:1.2rem;right:1.2rem;z-index:500;width:52px;height:52px;border-radius:50%;background:var(--gray2);border:1px solid #333;display:flex;align-items:center;justify-content:center;font-size:1.3rem;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(0,0,0,.6)}
+#chat-fab:hover{border-color:var(--gold);transform:scale(1.08)}
+#chat-fab .unread{position:absolute;top:-2px;right:-2px;background:var(--red);color:#fff;font-size:.55rem;font-family:'IBM Plex Mono',monospace;font-weight:600;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;display:none}
+
+#chat-drawer{position:fixed;bottom:0;right:0;width:min(100vw,360px);height:70vh;background:#0d0d0d;border-top:1px solid #252525;border-left:1px solid #252525;border-radius:12px 0 0 0;z-index:600;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+#chat-drawer.open{transform:translateY(0)}
+#chat-hdr{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;border-bottom:1px solid #1e1e1e;flex-shrink:0}
+#chat-hdr span{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.12em;color:var(--gold)}
+#chat-close{background:none;border:none;color:#555;font-size:1.2rem;cursor:pointer;padding:.2rem}
+#chat-close:hover{color:var(--cream)}
+#chat-msgs{flex:1;overflow-y:auto;padding:.75rem 1rem;display:flex;flex-direction:column;gap:.5rem;scroll-behavior:smooth}
+#chat-msgs::-webkit-scrollbar{width:3px}
+#chat-msgs::-webkit-scrollbar-track{background:transparent}
+#chat-msgs::-webkit-scrollbar-thumb{background:#333;border-radius:2px}
+.msg{display:flex;flex-direction:column;gap:.15rem;max-width:85%}
+.msg.mine{align-self:flex-end;align-items:flex-end}
+.msg.theirs{align-self:flex-start;align-items:flex-start}
+.msg-author{font-size:.58rem;letter-spacing:.1em;color:#555}
+.msg-bubble{padding:.5rem .75rem;border-radius:3px;font-size:.8rem;line-height:1.4;word-break:break-word}
+.msg.mine .msg-bubble{background:var(--red);color:var(--cream);border-bottom-right-radius:0}
+.msg.theirs .msg-bubble{background:#1e1e1e;color:var(--cream);border-bottom-left-radius:0}
+#chat-input-row{display:flex;gap:.5rem;padding:.75rem 1rem;border-top:1px solid #1e1e1e;flex-shrink:0}
+#chat-input{flex:1;font-family:'IBM Plex Mono',monospace;font-size:.8rem;background:#1a1a1a;border:1px solid #333;color:var(--cream);padding:.6rem .8rem;border-radius:2px;outline:none}
+#chat-input:focus{border-color:var(--gold)}
+#chat-send{background:var(--red);border:none;color:#fff;font-size:.9rem;width:36px;height:36px;border-radius:2px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+#chat-send:hover{background:var(--red-dark)}
+
+/* ══════════════════════════════════════════════════════
+   😄 EMOTES
+══════════════════════════════════════════════════════ */
+#emote-fab{position:fixed;bottom:1.2rem;left:1.2rem;z-index:500;width:52px;height:52px;border-radius:50%;background:var(--gray2);border:1px solid #333;display:flex;align-items:center;justify-content:center;font-size:1.3rem;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(0,0,0,.6)}
+#emote-fab:hover{border-color:var(--gold);transform:scale(1.08)}
+#emote-panel{position:fixed;bottom:4.8rem;left:1rem;z-index:600;background:#0d0d0d;border:1px solid #252525;border-radius:8px;padding:.6rem;display:flex;gap:.4rem;flex-wrap:wrap;width:220px;transform:scale(0);transform-origin:bottom left;transition:transform .2s cubic-bezier(.4,0,.2,1);pointer-events:none}
+#emote-panel.open{transform:scale(1);pointer-events:all}
+.emote-btn{font-size:1.6rem;background:none;border:none;cursor:pointer;padding:.3rem;border-radius:4px;transition:transform .15s,background .15s;line-height:1}
+.emote-btn:hover{transform:scale(1.3);background:#1e1e1e}
+
+/* ── FLYING EMOTES ── */
+#emote-stage{position:fixed;inset:0;pointer-events:none;z-index:700;overflow:hidden}
+.flying-emote{position:absolute;font-size:2.2rem;animation:fly-up 2.5s ease-out forwards;pointer-events:none}
+@keyframes fly-up{0%{opacity:1;transform:translateY(0) scale(1)}70%{opacity:1;transform:translateY(-120px) scale(1.2)}100%{opacity:0;transform:translateY(-200px) scale(.8)}}
+
+/* ══════════════════════════════════════════════════════
+   🔍 PHOTO MODAL
+══════════════════════════════════════════════════════ */
+#photo-modal{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:900;display:none;align-items:center;justify-content:center;flex-direction:column;gap:1rem;padding:1rem}
+#photo-modal.open{display:flex}
+#photo-modal img{max-width:100%;max-height:80vh;object-fit:contain;border-radius:4px;border:1px solid #333}
+#photo-modal-close{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.15em;color:#555;background:none;border:1px solid #333;padding:.5rem 1.5rem;border-radius:2px;cursor:pointer}
+#photo-modal-close:hover{color:var(--cream);border-color:var(--cream)}
+#photo-modal-num{font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.2em;color:var(--gold)}
+
+/* ══════════════════════════════════════════════════════
+   🏆 VOTE MEILLEURE PHOTO
+══════════════════════════════════════════════════════ */
+.vote-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;width:100%}
+.vote-photo{aspect-ratio:1;border-radius:3px;overflow:hidden;position:relative;border:2px solid transparent;cursor:pointer;transition:all .2s}
+.vote-photo img{width:100%;height:100%;object-fit:cover}
+.vote-photo:hover{border-color:var(--gold);transform:scale(1.04)}
+.vote-photo.my-vote{border-color:var(--gold)!important;box-shadow:0 0 12px rgba(212,168,67,.5)}
+.vote-photo.my-vote::after{content:'⭐';position:absolute;inset:0;background:rgba(212,168,67,.3);display:flex;align-items:center;justify-content:center;font-size:1.8rem}
+.vote-bar-wrap{width:100%;margin-top:.5rem}
+.vote-bar-item{display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;font-size:.72rem}
+.vote-bar-img{width:36px;height:36px;border-radius:2px;object-fit:cover;flex-shrink:0}
+.vote-bar-track{flex:1;height:8px;background:#1e1e1e;border-radius:4px;overflow:hidden}
+.vote-bar-fill{height:100%;background:var(--gold);border-radius:4px;transition:width .5s}
+.vote-bar-count{color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.1em;min-width:20px;text-align:right}
+.winner-photo{width:160px;height:160px;border-radius:4px;overflow:hidden;border:2px solid var(--gold);margin:0 auto;box-shadow:0 0 30px rgba(212,168,67,.3)}
+.winner-photo img{width:100%;height:100%;object-fit:cover}
 </style>
 </head>
 <body>
+
+<!-- HEADER -->
 <div id="hdr" style="display:none">
   <h1>Le Jour du Jugement</h1>
   <p id="hdr-sub">qui sera l'élu ?</p>
 </div>
+
+<!-- MAIN -->
 <div id="root"></div>
+
+<!-- FABs (chat + emotes) -->
+<button id="emote-fab" style="display:none">😄</button>
+<div id="emote-panel">
+  <button class="emote-btn" data-e="😂">😂</button>
+  <button class="emote-btn" data-e="😱">😱</button>
+  <button class="emote-btn" data-e="🔥">🔥</button>
+  <button class="emote-btn" data-e="💀">💀</button>
+  <button class="emote-btn" data-e="👑">👑</button>
+  <button class="emote-btn" data-e="🫵">🫵</button>
+  <button class="emote-btn" data-e="🤔">🤔</button>
+  <button class="emote-btn" data-e="😈">😈</button>
+  <button class="emote-btn" data-e="🎯">🎯</button>
+  <button class="emote-btn" data-e="🙈">🙈</button>
+</div>
+
+<button id="chat-fab" style="display:none">💬<span class="unread" id="unread-badge"></span></button>
+<div id="chat-drawer">
+  <div id="chat-hdr">
+    <span>💬 Chat</span>
+    <button id="chat-close">✕</button>
+  </div>
+  <div id="chat-msgs"></div>
+  <div id="chat-input-row">
+    <input id="chat-input" placeholder="Message…" maxlength="200" autocomplete="off"/>
+    <button id="chat-send">➤</button>
+  </div>
+</div>
+
+<!-- PHOTO MODAL -->
+<div id="photo-modal">
+  <div id="photo-modal-num"></div>
+  <img id="photo-modal-img" src="" alt=""/>
+  <button id="photo-modal-close">✕ Fermer</button>
+</div>
+
+<!-- EMOTE STAGE -->
+<div id="emote-stage"></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc, onSnapshot, collection, addDoc, query, orderBy, limit, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBKvpew106iDfzz16fV19cTwWQsBp3KBnY",
@@ -119,62 +250,119 @@ const firebaseConfig = {
   messagingSenderId: "453943236066",
   appId: "1:453943236066:web:ef1c02ca130a31e78415bb"
 };
-
 const fbApp = initializeApp(firebaseConfig);
 const db = getFirestore(fbApp);
 
-// Couleur par index de joueur
-const COLORS = ['#e74c3c','#3498db','#2ecc71','#f39c12','#9b59b6','#1abc9c'];
-function pColor(room, playerId){ const i=room.players.findIndex(p=>p.id===playerId); return COLORS[Math.max(0,i)]; }
-
-const PHASE = {LOBBY:'lobby',UPLOAD:'upload',CHOOSING:'choosing',QPICK:'qpick',QREV:'qrev',ANS:'ans',ANSREV:'ansrev',ELIM:'elim',END:'end'};
-
-const QUESTIONS = [
-  "vote pour l'extrême droite","possède un compte OnlyFans","prend des douches régulièrement",
-  "a déjà mangé de la nourriture tombée par terre","dort avec une peluche",
-  "a déjà liké une photo de son ex à 3h du matin","écoute du Jul en cachette",
-  "a une collection secrète de figurines","a déjà menti sur son CV","chante sous la douche",
-  "a peur du noir","croit aux horoscopes","relit ses vieux messages pour se faire du mal",
-  "a déjà pleuré devant un film Disney","a un pseudo gamer honteux","met du ketchup sur ses pâtes",
-  "a déjà bu du lait directement dans la bouteille","fait semblant de travailler en réunion Zoom",
-  "a un ex bloqué sur tous les réseaux","parle à son chat comme à un humain",
-  "a déjà pris une photo de son repas avant de manger","a un dossier caché sur son téléphone",
-  "a déjà googlé son propre nom","a déjà senti ses vêtements pour voir s'ils sont propres",
-  "croit avoir des capacités psychiques","a déjà imité son patron dans son dos","a peur des pigeons",
-  "commande toujours la même chose au resto","a déjà utilisé la maladie comme excuse pour esquiver",
-  "a déjà envoyé un SMS au mauvais destinataire","a regardé le profil LinkedIn de son ex",
-  "a déjà triché au Uno","possède encore une Nintendo DS","a peur des clowns",
-  "a déjà chanté seul dans sa voiture à fond","boit du jus d'orange sans pulpe",
-  "a déjà fait semblant de ne pas voir quelqu'un dans la rue","parle à ses plantes",
-  "a un abonnement Netflix depuis plus d'un an sans rien regarder",
-  "a déjà mangé directement dans la casserole","a une application de méditation jamais utilisée"
-];
+const COLORS=['#e74c3c','#3498db','#2ecc71','#f39c12','#9b59b6','#1abc9c'];
+const PHASE={LOBBY:'lobby',UPLOAD:'upload',CHOOSING:'choosing',QPICK:'qpick',QREV:'qrev',ANS:'ans',ANSREV:'ansrev',ELIM:'elim',END:'end',VOTE:'vote',PODIUM:'podium'};
+const QUESTIONS=["vote pour l'extrême droite","possède un compte OnlyFans","prend des douches régulièrement","a déjà mangé de la nourriture tombée par terre","dort avec une peluche","a déjà liké une photo de son ex à 3h du matin","écoute du Jul en cachette","a une collection secrète de figurines","a déjà menti sur son CV","chante sous la douche","a peur du noir","croit aux horoscopes","relit ses vieux messages pour se faire du mal","a déjà pleuré devant un film Disney","a un pseudo gamer honteux","met du ketchup sur ses pâtes","a déjà bu du lait directement dans la bouteille","fait semblant de travailler en réunion Zoom","a un ex bloqué sur tous les réseaux","parle à son chat comme à un humain","a déjà pris une photo de son repas avant de manger","a un dossier caché sur son téléphone","a déjà googlé son propre nom","a déjà senti ses vêtements pour voir s'ils sont propres","croit avoir des capacités psychiques","a déjà imité son patron dans son dos","a peur des pigeons","commande toujours la même chose au resto","a déjà utilisé la maladie comme excuse pour esquiver","a déjà envoyé un SMS au mauvais destinataire","a regardé le profil LinkedIn de son ex","a déjà triché au Uno","possède encore une Nintendo DS","a peur des clowns","a déjà chanté seul dans sa voiture à fond","boit du jus d'orange sans pulpe","parle à ses plantes","a un abonnement Netflix jamais utilisé","a déjà mangé directement dans la casserole","a une application de méditation jamais ouverte"];
 
 function rndQ(n=3){return [...QUESTIONS].sort(()=>Math.random()-.5).slice(0,n)}
 function genCode(){return Math.random().toString(36).substr(2,4).toUpperCase()}
-function genId(){let id=localStorage.getItem('jdj_pid4');if(!id){id=Math.random().toString(36).substr(2,10);localStorage.setItem('jdj_pid4',id)}return id}
-async function compress(dataUrl,maxW=320,q=.65){
-  return new Promise(res=>{
-    const img=new Image();
-    img.onload=()=>{const c=document.createElement('canvas');const r=Math.min(maxW/img.width,maxW/img.height,1);c.width=Math.round(img.width*r);c.height=Math.round(img.height*r);c.getContext('2d').drawImage(img,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',q))};
-    img.src=dataUrl;
-  });
-}
-
-const pid=genId();
-let roomCode='',unsub=null,localVotes=[],localSuggestions=[];
-
-async function getRoom(c){const s=await getDoc(doc(db,'rooms',c));return s.exists()?s.data():null}
-async function saveRoom(c,d){await setDoc(doc(db,'rooms',c),d)}
-function listenRoom(c,cb){if(unsub)unsub();unsub=onSnapshot(doc(db,'rooms',c),snap=>{if(snap.exists())cb(snap.data())})}
+function genId(){let id=localStorage.getItem('jdj_pid5');if(!id){id=Math.random().toString(36).substr(2,10);localStorage.setItem('jdj_pid5',id)}return id}
+async function compress(dataUrl,maxW=320,q=.65){return new Promise(res=>{const img=new Image();img.onload=()=>{const c=document.createElement('canvas');const r=Math.min(maxW/img.width,maxW/img.height,1);c.width=Math.round(img.width*r);c.height=Math.round(img.height*r);c.getContext('2d').drawImage(img,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',q))};img.src=dataUrl})}
+function pColor(room,id){const i=room.players.findIndex(p=>p.id===id);return COLORS[Math.max(0,i)]}
 function setHdr(t){document.getElementById('hdr-sub').textContent=t}
 function html(id,content){document.getElementById('root').innerHTML=`<div class="scr" id="${id}">${content}</div>`}
 
+const pid=genId();
+let roomCode='',myName='',roomUnsub=null,chatUnsub=null,emoteUnsub=null;
+let localVotes=[],localSuggestions=[],chatOpen=false,unreadCount=0,lastMsgTs=0;
+let currentRoom=null;
+
+// ── FIRESTORE ─────────────────────────────────────────────────────────────────
+async function getRoom(c){const s=await getDoc(doc(db,'rooms',c));return s.exists()?s.data():null}
+async function saveRoom(c,d){await setDoc(doc(db,'rooms',c),d)}
+function listenRoom(c,cb){if(roomUnsub)roomUnsub();roomUnsub=onSnapshot(doc(db,'rooms',c),snap=>{if(snap.exists())cb(snap.data())})}
+
+// ── CHAT ──────────────────────────────────────────────────────────────────────
+function initChat(code){
+  if(chatUnsub)chatUnsub();
+  const q=query(collection(db,'rooms',code,'messages'),orderBy('ts','asc'),limit(100));
+  chatUnsub=onSnapshot(q,snap=>{
+    const msgs=snap.docs.map(d=>d.data());
+    renderChatMsgs(msgs);
+    if(!chatOpen&&msgs.length>0){
+      const last=msgs[msgs.length-1];
+      if(last.ts&&last.pid!==pid){unreadCount++;showUnread()}
+    }
+  });
+}
+function renderChatMsgs(msgs){
+  const el=document.getElementById('chat-msgs');if(!el)return;
+  el.innerHTML=msgs.map(m=>{
+    const mine=m.pid===pid;
+    return `<div class="msg ${mine?'mine':'theirs'}">
+      ${!mine?`<div class="msg-author" style="color:${m.color||'#555'}">${m.name}</div>`:''}
+      <div class="msg-bubble">${escHtml(m.text)}</div>
+    </div>`;
+  }).join('');
+  el.scrollTop=el.scrollHeight;
+}
+function showUnread(){const b=document.getElementById('unread-badge');if(!b)return;if(unreadCount>0){b.style.display='flex';b.textContent=unreadCount>9?'9+':unreadCount}else{b.style.display='none'}}
+async function sendMsg(text){
+  if(!text.trim()||!roomCode)return;
+  await addDoc(collection(db,'rooms',roomCode,'messages'),{pid,name:myName,text:text.trim(),color:currentRoom?pColor(currentRoom,pid):'#888',ts:serverTimestamp()});
+}
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+// ── EMOTES ────────────────────────────────────────────────────────────────────
+function initEmotes(code){
+  if(emoteUnsub)emoteUnsub();
+  emoteUnsub=onSnapshot(doc(db,'rooms',code,'meta','emotes'),snap=>{
+    if(!snap.exists())return;
+    const d=snap.data();
+    if(d.last&&d.last.ts!==lastMsgTs){lastMsgTs=d.last.ts;spawnEmote(d.last.e,d.last.x)}
+  });
+}
+async function sendEmote(e){
+  if(!roomCode)return;
+  const x=10+Math.random()*80;
+  await setDoc(doc(db,'rooms',roomCode,'meta','emotes'),{last:{e,x,ts:Date.now(),pid}});
+}
+function spawnEmote(e,xPct){
+  const stage=document.getElementById('emote-stage');if(!stage)return;
+  const el=document.createElement('div');el.className='flying-emote';el.textContent=e;
+  el.style.left=`${xPct}%`;el.style.bottom='80px';
+  stage.appendChild(el);
+  setTimeout(()=>el.remove(),2600);
+}
+
+// ── PHOTO MODAL ───────────────────────────────────────────────────────────────
+function openPhoto(src,num){
+  const m=document.getElementById('photo-modal');
+  document.getElementById('photo-modal-img').src=src;
+  document.getElementById('photo-modal-num').textContent=`Photo #${num}`;
+  m.classList.add('open');
+}
+document.getElementById('photo-modal-close').onclick=()=>document.getElementById('photo-modal').classList.remove('open');
+document.getElementById('photo-modal').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('open')});
+
+// ── FAB BINDINGS ──────────────────────────────────────────────────────────────
+document.getElementById('chat-fab').onclick=()=>{
+  chatOpen=!chatOpen;
+  document.getElementById('chat-drawer').classList.toggle('open',chatOpen);
+  if(chatOpen){unreadCount=0;showUnread();setTimeout(()=>{const el=document.getElementById('chat-msgs');if(el)el.scrollTop=el.scrollHeight},100)}
+};
+document.getElementById('chat-close').onclick=()=>{chatOpen=false;document.getElementById('chat-drawer').classList.remove('open')};
+document.getElementById('chat-send').onclick=()=>{const i=document.getElementById('chat-input');sendMsg(i.value);i.value=''};
+document.getElementById('chat-input').addEventListener('keydown',e=>{if(e.key==='Enter'){const i=e.target;sendMsg(i.value);i.value=''}});
+
+let emoteOpen=false;
+document.getElementById('emote-fab').onclick=()=>{emoteOpen=!emoteOpen;document.getElementById('emote-panel').classList.toggle('open',emoteOpen)};
+document.querySelectorAll('.emote-btn').forEach(btn=>{btn.onclick=()=>{sendEmote(btn.dataset.e);emoteOpen=false;document.getElementById('emote-panel').classList.remove('open')}});
+
+function showFabs(show){['chat-fab','emote-fab'].forEach(id=>{document.getElementById(id).style.display=show?'flex':'none'})}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
 async function render(room){
+  currentRoom=room;
   document.getElementById('hdr').style.display='';
-  if(!room){showHome();return}
+  if(!room){showFabs(false);showHome();return}
   const mancheLabel=room.manche>1?` · Manche ${room.manche}`:'';
   setHdr(room.code?`room : ${room.code}${mancheLabel}`:'qui sera l\'élu ?');
+  const inGame=room.phase!==PHASE.LOBBY&&room.phase!==PHASE.UPLOAD;
+  showFabs(true);
   const {phase:ph}=room;
   if(ph===PHASE.LOBBY)    return showLobby(room);
   if(ph===PHASE.UPLOAD)   return showUpload(room);
@@ -185,40 +373,36 @@ async function render(room){
   if(ph===PHASE.ANSREV)   return showAnsrev(room);
   if(ph===PHASE.ELIM)     return showElim(room);
   if(ph===PHASE.END)      return showEnd(room);
+  if(ph===PHASE.VOTE)     return showVote(room);
+  if(ph===PHASE.PODIUM)   return showPodium(room);
 }
 
 // ── HOME ──────────────────────────────────────────────────────────────────────
 function showHome(){
-  setHdr('qui sera l\'élu ?');
+  showFabs(false);setHdr('qui sera l\'élu ?');
   html('home',`
-    <div class="card">
-      <div class="ct">Ton identité</div>
-      <label>TON PRÉNOM</label>
+    <div class="card"><div class="ct">Ton identité</div><label>TON PRÉNOM</label>
       <input class="inp" id="pname" placeholder="ex : Julien" maxlength="20" autocomplete="off"/>
     </div>
     <button class="btn bp" id="btn-create">⚔ Créer une Room</button>
     <div class="sep"></div>
-    <div class="card">
-      <div class="ct">Rejoindre</div>
-      <label>CODE DE LA ROOM</label>
+    <div class="card"><div class="ct">Rejoindre</div><label>CODE DE LA ROOM</label>
       <input class="inp" id="jcode" placeholder="ex : A3KZ" maxlength="4" style="text-transform:uppercase;letter-spacing:.3em;font-size:1.4rem;text-align:center" autocomplete="off"/>
       <button class="btn bg" id="btn-join" style="margin-top:.75rem">🔍 Rejoindre</button>
     </div>
     <div class="err" id="err"></div>
-    <div class="hint">Chaque joueur ouvre cette page sur son téléphone<br/>et entre le même code pour rejoindre</div>
+    <div class="hint">Chaque joueur ouvre cette page sur son téléphone</div>
   `);
   const err=m=>document.getElementById('err').textContent=m;
   document.getElementById('btn-create').onclick=async()=>{
     const name=document.getElementById('pname').value.trim();
     if(!name){err('Entre ton prénom !');return}
-    const code=genCode();
-    const room={code,phase:PHASE.LOBBY,manche:1,
-      players:[{id:pid,name,isHost:true,photos:[],ready:false}],
-      photoPool:[],displayPhotos:[],eluIndex:-1,chooserId:'',enqueteurs:[],
-      curEnqIdx:0,question:'',answer:'',eliminations:[],history:[],winner:'',
-      pendingElim:[],suggestions:{}
-    };
-    await saveRoom(code,room);roomCode=code;listenRoom(code,render);render(room);
+    myName=name;const code=genCode();
+    const room={code,phase:PHASE.LOBBY,manche:1,players:[{id:pid,name,isHost:true,photos:[],ready:false}],
+      photoPool:[],displayPhotos:[],eluIndex:-1,chooserId:'',enqueteurs:[],curEnqIdx:0,
+      question:'',answer:'',eliminations:[],history:[],winner:'',pendingElim:[],suggestions:{},
+      votes:{},photoVotes:{}};
+    await saveRoom(code,room);roomCode=code;initChat(code);initEmotes(code);listenRoom(code,render);render(room);
   };
   document.getElementById('btn-join').onclick=async()=>{
     const name=document.getElementById('pname').value.trim();
@@ -229,37 +413,26 @@ function showHome(){
     if(!room){err('Room introuvable !');return}
     if(room.phase!==PHASE.LOBBY){err('Partie déjà commencée !');return}
     if(room.players.length>=6){err('Room pleine (6 max) !');return}
-    if(!room.players.find(p=>p.id===pid)){
-      room.players.push({id:pid,name,isHost:false,photos:[],ready:false});
-      await saveRoom(code,room);
-    }
-    roomCode=code;listenRoom(code,render);render(room);
+    myName=name;
+    if(!room.players.find(p=>p.id===pid)){room.players.push({id:pid,name,isHost:false,photos:[],ready:false});await saveRoom(code,room)}
+    roomCode=code;initChat(code);initEmotes(code);listenRoom(code,render);render(room);
   };
 }
 
 // ── LOBBY ─────────────────────────────────────────────────────────────────────
 function showLobby(room){
   const me=room.players.find(p=>p.id===pid)||{};
-  const rows=room.players.map((p,i)=>`
-    <div class="prow">
-      <div class="dot" style="background:${COLORS[i]};box-shadow:0 0 5px ${COLORS[i]}40"></div>
-      <span>${p.name}${p.id===pid?' <span style="color:#444">(toi)</span>':''}</span>
-      <span class="bdg ${p.isHost?'b-host':'b-wait'}">${p.isHost?'HOST':'joueur'}</span>
-    </div>`).join('');
   html('lobby',`
-    <div class="card">
-      <div class="ct">Code de la Room</div>
-      <div class="code-big">${room.code}</div>
-      <div class="hint" style="margin-top:.5rem">Partage ce code — chacun l'ouvre sur son téléphone</div>
-    </div>
-    <div class="card">
-      <div class="ct">Joueurs (${room.players.length}/6)</div>
-      <div style="display:flex;flex-direction:column;gap:.4rem">${rows}</div>
-    </div>
+    <div class="card"><div class="ct">Code de la Room</div><div class="code-big">${room.code}</div>
+      <div class="hint" style="margin-top:.5rem">Partage ce code avec tes amis</div></div>
+    <div class="card"><div class="ct">Joueurs (${room.players.length}/6)</div>
+      <div style="display:flex;flex-direction:column;gap:.4rem">
+        ${room.players.map((p,i)=>`<div class="prow"><div class="dot" style="background:${COLORS[i]};box-shadow:0 0 5px ${COLORS[i]}40"></div>
+          <span>${p.name}${p.id===pid?' <span style="color:#444">(toi)</span>':''}</span>
+          <span class="bdg ${p.isHost?'b-host':'b-wait'}">${p.isHost?'HOST':'joueur'}</span></div>`).join('')}
+      </div></div>
     ${me.isHost
-      ?`<button class="btn bp" id="btn-start" ${room.players.length>=2?'':'disabled'}>
-          ${room.players.length>=2?`Lancer (${room.players.length} joueurs)`:'En attente de joueurs…'}
-        </button>`
+      ?`<button class="btn bp" id="btn-start" ${room.players.length>=2?'':'disabled'}>${room.players.length>=2?`Lancer (${room.players.length} joueurs)`:'En attente de joueurs…'}</button>`
       :`<div class="pulse">En attente que l'host lance…</div>`}
   `);
   if(me.isHost) document.getElementById('btn-start').onclick=async()=>{const d=await getRoom(roomCode);d.phase=PHASE.UPLOAD;await saveRoom(roomCode,d)};
@@ -274,50 +447,39 @@ function showUpload(room){
     :`<div class="pslot add-slot">+</div>`).join('');
   const rCount=room.players.filter(p=>(p.photos||[]).length===6).length;
   const allReady=rCount===room.players.length;
-  const prows=room.players.map((p,i)=>`
-    <div class="prow">
-      <div class="dot" style="background:${COLORS[i]};box-shadow:0 0 4px ${COLORS[i]}40"></div>
-      <span>${p.name}${p.id===pid?' (toi)':''}</span>
-      <span class="bdg ${(p.photos||[]).length===6?'b-ready':'b-wait'}">${(p.photos||[]).length===6?'✓ PRÊT':`${(p.photos||[]).length}/6`}</span>
-    </div>`).join('');
   const poolSize=(room.photoPool||[]).length;
   html('upload',`
     ${room.manche>1?`<div class="manche-badge">⚔ MANCHE ${room.manche}</div>`:''}
-    ${poolSize>0?`<div class="pool-info">♻️ <strong>${poolSize}</strong> photo${poolSize>1?'s':''} en réserve depuis la manche précédente</div>`:''}
-    <div class="card">
-      <div class="ct">Tes 6 photos</div>
-      <div class="pgrid">${slots}</div>
+    ${poolSize>0?`<div class="pool-info">♻️ <strong>${poolSize}</strong> photo${poolSize>1?'s':''} en réserve</div>`:''}
+    <div class="card"><div class="ct">Tes 6 photos</div><div class="pgrid">${slots}</div>
       ${photos.length<6
         ?`<div class="btn-row" style="margin-top:.75rem">
             <button class="btn bg" id="btn-camera">📷 Photo</button>
             <button class="btn bg" id="btn-gallery">🖼️ Galerie</button>
-          </div>
-          <div class="hint" style="margin-top:.35rem">${photos.length}/6 ajoutées</div>`
-        :`<div style="text-align:center;color:#4caf50;font-size:.8rem;margin-top:.6rem;letter-spacing:.1em">✓ Prêt !</div>`}
-      <input type="file" id="fi-camera" accept="image/*" capture="environment" style="display:none"/>
-      <input type="file" id="fi-gallery" accept="image/*" multiple style="display:none"/>
+          </div><div class="hint" style="margin-top:.35rem">${photos.length}/6 ajoutées</div>`
+        :`<div style="text-align:center;color:#4caf50;font-size:.8rem;margin-top:.6rem">✓ Prêt !</div>`}
+      <input type="file" id="fi-c" accept="image/*" capture="environment" style="display:none"/>
+      <input type="file" id="fi-g" accept="image/*" multiple style="display:none"/>
     </div>
-    <div class="card">
-      <div class="ct">Joueurs</div>
+    <div class="card"><div class="ct">Joueurs</div>
       <div class="pbar"><div class="pfill" style="width:${Math.round(rCount/room.players.length*100)}%"></div></div>
-      <div style="display:flex;flex-direction:column;gap:.4rem">${prows}</div>
-    </div>
-    ${me.isHost
-      ?`<button class="btn bp" id="btn-go" ${allReady?'':'disabled'}>${allReady?'Lancer !':rCount+'/'+room.players.length+' prêts…'}</button>`
-      :`<div class="pulse">En attente que l'host lance…</div>`}
+      <div style="display:flex;flex-direction:column;gap:.4rem">
+        ${room.players.map((p,i)=>`<div class="prow"><div class="dot" style="background:${COLORS[i]}"></div>
+          <span>${p.name}${p.id===pid?' (toi)':''}</span>
+          <span class="bdg ${(p.photos||[]).length===6?'b-ready':'b-wait'}">${(p.photos||[]).length===6?'✓ PRÊT':`${(p.photos||[]).length}/6`}</span></div>`).join('')}
+      </div></div>
+    ${me.isHost?`<button class="btn bp" id="btn-go" ${allReady?'':'disabled'}>${allReady?'Lancer !':rCount+'/'+room.players.length+' prêts…'}</button>`:`<div class="pulse">En attente que l'host lance…</div>`}
   `);
-  const fiC=document.getElementById('fi-camera'),fiG=document.getElementById('fi-gallery');
+  const fiC=document.getElementById('fi-c'),fiG=document.getElementById('fi-g');
   document.getElementById('btn-camera')?.addEventListener('click',()=>fiC.click());
   document.getElementById('btn-gallery')?.addEventListener('click',()=>fiG.click());
   document.querySelectorAll('.add-slot').forEach(s=>s.onclick=()=>fiG.click());
   document.querySelectorAll('.rx').forEach(btn=>btn.onclick=async e=>{
-    e.stopPropagation();
-    const d=await getRoom(roomCode);const mp=d.players.find(p=>p.id===pid);
+    e.stopPropagation();const d=await getRoom(roomCode);const mp=d.players.find(p=>p.id===pid);
     mp.photos.splice(parseInt(btn.dataset.i),1);mp.ready=false;await saveRoom(roomCode,d);
   });
   async function handleFiles(files){
-    const d=await getRoom(roomCode);const mp=d.players.find(p=>p.id===pid);
-    const rem=6-(mp.photos||[]).length;
+    const d=await getRoom(roomCode);const mp=d.players.find(p=>p.id===pid);const rem=6-(mp.photos||[]).length;
     for(const f of Array.from(files).slice(0,rem)){
       const url=await new Promise(res=>{const r=new FileReader();r.onload=ev=>res(ev.target.result);r.readAsDataURL(f)});
       mp.photos.push(await compress(url));
@@ -328,7 +490,6 @@ function showUpload(room){
   fiG.onchange=async e=>{await handleFiles(e.target.files);fiG.value=''};
   if(me.isHost) document.getElementById('btn-go')?.addEventListener('click',async()=>{
     const d=await getRoom(roomCode);
-    // Pool = nouvelles photos + pool restant
     const newPhotos=d.players.flatMap(p=>(p.photos||[]).map(src=>({src,owner:p.id})));
     const fullPool=[...(d.photoPool||[]),...newPhotos].sort(()=>Math.random()-.5);
     const display=fullPool.slice(0,Math.min(12,fullPool.length));
@@ -338,7 +499,7 @@ function showUpload(room){
     const enqs=d.players.filter(p=>p.id!==chooser.id).map(p=>p.id);
     Object.assign(d,{photoPool:remaining,displayPhotos:display,chooserId:chooser.id,enqueteurs:enqs,
       curEnqIdx:0,eluIndex:-1,eliminations:[],history:[],winner:'',pendingElim:[],suggestions:{},
-      question:'',answer:'',phase:PHASE.CHOOSING});
+      question:'',answer:'',votes:{},photoVotes:{},phase:PHASE.CHOOSING});
     await saveRoom(roomCode,d);
   });
 }
@@ -350,38 +511,35 @@ function showChoosing(room){
   if(isChooser){
     html('choosing',`
       <div class="rbadge rch">👑 Celui qui Choisit</div>
-      <div class="card">
-        <div class="ct">Sélectionne l'Élu en secret</div>
-        <p style="font-family:'Crimson Pro',serif;font-size:.9rem;line-height:1.5;color:#888;margin-bottom:.8rem">
-          Choisis <strong style="color:var(--gold)">une photo</strong>. Les enquêteurs devront la retrouver.
-        </p>
-        <div class="ggrid">${gphotos(room,true)}</div>
+      <div class="card"><div class="ct">Sélectionne l'Élu en secret</div>
+        <p style="font-family:'Crimson Pro',serif;font-size:.88rem;line-height:1.5;color:#888;margin-bottom:.8rem">
+          Choisis <strong style="color:var(--gold)">une photo</strong>. Les enquêteurs devront la retrouver.</p>
+        <div class="ggrid">${gphotos(room,true,false)}</div>
       </div>
       <button class="btn bp" id="btn-elu" disabled>Confirmer l'Élu →</button>
     `);
     let sel=-1;
-    document.querySelectorAll('.gp.sel').forEach(el=>{
-      el.onclick=()=>{
-        document.querySelectorAll('.gp').forEach(x=>x.classList.remove('active-elim'));
-        el.classList.add('active-elim');sel=parseInt(el.dataset.i);
-        document.getElementById('btn-elu').disabled=false;
-      };
+    document.querySelectorAll('.gp').forEach(el=>{
+      el.addEventListener('click',()=>{
+        const i=parseInt(el.dataset.i);
+        if(el.classList.contains('sel')){
+          document.querySelectorAll('.gp').forEach(x=>x.classList.remove('active-elim'));
+          el.classList.add('active-elim');sel=i;document.getElementById('btn-elu').disabled=false;
+        } else openPhoto(room.displayPhotos[i].src,i+1);
+      });
     });
-    document.getElementById('btn-elu').onclick=async()=>{
-      if(sel<0)return;const d=await getRoom(roomCode);d.eluIndex=sel;d.phase=PHASE.QPICK;await saveRoom(roomCode,d);
-    };
+    document.getElementById('btn-elu').onclick=async()=>{if(sel<0)return;const d=await getRoom(roomCode);d.eluIndex=sel;d.phase=PHASE.QPICK;await saveRoom(roomCode,d)};
   } else {
     html('choosing',`
       <div class="rbadge ren">🔍 Enquêteur</div>
-      <div class="card" style="text-align:center">
-        <div class="ct">Sélection secrète</div>
-        <p style="font-family:'Crimson Pro',serif;font-size:.9rem;line-height:1.5;color:#888">
-          <strong style="color:var(--gold)">${chooser?.name}</strong> choisit l'Élu en secret…
-        </p>
+      <div class="card" style="text-align:center"><div class="ct">Sélection secrète</div>
+        <p style="font-family:'Crimson Pro',serif;font-size:.88rem;line-height:1.5;color:#888">
+          <strong style="color:var(--gold)">${chooser?.name}</strong> choisit l'Élu en secret…</p>
         <div style="margin-top:.8rem" class="pulse">Patiente…</div>
       </div>
-      <div class="card"><div class="ggrid">${gphotos(room,false)}</div></div>
+      <div class="card"><div class="ggrid">${gphotos(room,false,true)}</div></div>
     `);
+    bindZoom(room);
   }
 }
 
@@ -395,13 +553,12 @@ function showQpick(room){
     const qs=rndQ(3);window._qs=qs;
     html('qpick',`
       <div class="rbadge ren">🔍 Ton tour d'enquêter</div>
-      <div class="card">
-        <div class="ct">Choisis une question</div>
-        <div class="tag" style="margin-bottom:.8rem">${remaining} photo${remaining>1?'s':''} encore en jeu — Tour ${(room.history||[]).length+1}</div>
+      <div class="card"><div class="ct">Choisis une question</div>
+        <div class="tag" style="margin-bottom:.8rem">${remaining} photo${remaining>1?'s':''} en jeu — Tour ${(room.history||[]).length+1}</div>
         ${qs.map((q,i)=>`<button class="qcard" data-qi="${i}">Est-ce que l'Élu ${q} ?</button>`).join('')}
         <div class="sep" style="margin:.5rem 0"></div>
-        <p style="font-size:.7rem;color:#555;letter-spacing:.08em;margin-bottom:.4rem">✏️ Ou pose ta propre question :</p>
-        <div class="custom-q-wrap" id="custom-wrap">
+        <p style="font-size:.68rem;color:#555;margin-bottom:.4rem">✏️ Ou pose ta propre question :</p>
+        <div class="custom-q-wrap" id="cqw">
           <span class="custom-q-prefix">Est-ce que l'Élu</span>
           <input class="custom-q-input" id="custom-q" placeholder="… ?" maxlength="80"/>
         </div>
@@ -409,35 +566,19 @@ function showQpick(room){
       <button class="btn bp" id="btn-q" disabled>Poser la question →</button>
     `);
     let selQ='';
-    document.querySelectorAll('.qcard').forEach(btn=>{
-      btn.onclick=()=>{
-        document.querySelectorAll('.qcard').forEach(x=>x.classList.remove('qsel'));
-        btn.classList.add('qsel');selQ=qs[parseInt(btn.dataset.qi)];
-        document.getElementById('custom-q').value='';
-        document.getElementById('custom-wrap').style.borderColor='';
-        document.getElementById('btn-q').disabled=false;
-      };
-    });
-    document.getElementById('custom-q').addEventListener('input',e=>{
-      const v=e.target.value.trim();
-      document.querySelectorAll('.qcard').forEach(x=>x.classList.remove('qsel'));
-      if(v){selQ=v;document.getElementById('btn-q').disabled=false;}
-      else{selQ='';document.getElementById('btn-q').disabled=true;}
-    });
-    document.getElementById('btn-q').onclick=async()=>{
-      if(!selQ)return;const d=await getRoom(roomCode);d.question=selQ;d.phase=PHASE.QREV;await saveRoom(roomCode,d);
-    };
+    document.querySelectorAll('.qcard').forEach(btn=>{btn.onclick=()=>{document.querySelectorAll('.qcard').forEach(x=>x.classList.remove('qsel'));btn.classList.add('qsel');selQ=qs[parseInt(btn.dataset.qi)];document.getElementById('custom-q').value='';document.getElementById('btn-q').disabled=false}});
+    document.getElementById('custom-q').addEventListener('input',e=>{const v=e.target.value.trim();document.querySelectorAll('.qcard').forEach(x=>x.classList.remove('qsel'));if(v){selQ=v;document.getElementById('btn-q').disabled=false}else{selQ='';document.getElementById('btn-q').disabled=true}});
+    document.getElementById('btn-q').onclick=async()=>{if(!selQ)return;const d=await getRoom(roomCode);d.question=selQ;d.phase=PHASE.QREV;await saveRoom(roomCode,d)};
   } else {
     html('qpick',`
-      <div class="card" style="text-align:center">
-        <div class="ct">Tour ${(room.history||[]).length+1}</div>
-        <p style="font-family:'Crimson Pro',serif;font-size:.9rem;line-height:1.5;color:#888">
-          C'est au tour de <strong style="color:var(--gold)">${enqP?.name}</strong><br/>de choisir une question…
-        </p>
+      <div class="card" style="text-align:center"><div class="ct">Tour ${(room.history||[]).length+1}</div>
+        <p style="font-family:'Crimson Pro',serif;font-size:.88rem;line-height:1.5;color:#888">
+          <strong style="color:var(--gold)">${enqP?.name}</strong> choisit une question…</p>
         <div style="margin-top:.8rem" class="pulse">Patiente…</div>
       </div>
-      <div class="card"><div class="ggrid">${gphotos(room,false)}</div></div>
+      <div class="card"><div class="ggrid">${gphotos(room,false,true)}</div></div>
     `);
+    bindZoom(room);
   }
 }
 
@@ -446,16 +587,14 @@ function showQrev(room){
   const isChooser=pid===room.chooserId;
   const chooser=room.players.find(p=>p.id===room.chooserId);
   html('qrev',`
-    <div class="card">
-      <div class="ct">La Question</div>
+    <div class="card"><div class="ct">La Question</div>
       <div class="rbox"><div class="rq" style="font-size:1.05rem">Est-ce que l'Élu ${room.question} ?</div></div>
-      <div style="margin-top:.75rem;color:#555;font-size:.72rem;text-align:center">
-        ${isChooser?`C'est ton heure de répondre.`:`${chooser?.name} va répondre…`}
-      </div>
+      <div style="margin-top:.7rem;color:#555;font-size:.7rem;text-align:center">${isChooser?`C'est ton heure de répondre.`:`${chooser?.name} va répondre…`}</div>
     </div>
-    <div class="card"><div class="ggrid">${gphotos(room,false)}</div></div>
+    <div class="card"><div class="ggrid">${gphotos(room,false,true)}</div></div>
     ${isChooser?`<button class="btn bp" id="btn-toans">Répondre →</button>`:`<div class="pulse">En attente de la réponse…</div>`}
   `);
+  bindZoom(room);
   if(isChooser) document.getElementById('btn-toans').onclick=async()=>{const d=await getRoom(roomCode);d.phase=PHASE.ANS;await saveRoom(roomCode,d)};
 }
 
@@ -465,28 +604,23 @@ function showAns(room){
   if(isChooser){
     html('ans',`
       <div class="rbadge rch">👑 Ta réponse</div>
-      <div class="card">
-        <div class="ct">La Question</div>
-        <div class="rbox"><div class="rq">Est-ce que l'Élu ${room.question} ?</div></div>
-      </div>
+      <div class="card"><div class="ct">La Question</div>
+        <div class="rbox"><div class="rq">Est-ce que l'Élu ${room.question} ?</div></div></div>
       <div class="abtns">
         <button class="abtn ay" data-a="oui">OUI</button>
         <button class="abtn an" data-a="non">NON</button>
         <button class="abtn adk" data-a="ne sait pas">NSP</button>
       </div>
     `);
-    document.querySelectorAll('.abtn').forEach(btn=>{
-      btn.onclick=async()=>{const d=await getRoom(roomCode);d.answer=btn.dataset.a;d.phase=PHASE.ANSREV;await saveRoom(roomCode,d)};
-    });
+    document.querySelectorAll('.abtn').forEach(btn=>{btn.onclick=async()=>{const d=await getRoom(roomCode);d.answer=btn.dataset.a;d.phase=PHASE.ANSREV;await saveRoom(roomCode,d)}});
   } else {
     html('ans',`
-      <div class="card" style="text-align:center">
-        <div class="ct">La Question</div>
+      <div class="card" style="text-align:center"><div class="ct">La Question</div>
         <div class="rbox"><div class="rq">Est-ce que l'Élu ${room.question} ?</div></div>
-        <div style="margin-top:.8rem" class="pulse">En attente de la réponse…</div>
-      </div>
-      <div class="card"><div class="ggrid">${gphotos(room,false)}</div></div>
+        <div style="margin-top:.8rem" class="pulse">En attente de la réponse…</div></div>
+      <div class="card"><div class="ggrid">${gphotos(room,false,true)}</div></div>
     `);
+    bindZoom(room);
   }
 }
 
@@ -497,25 +631,15 @@ function showAnsrev(room){
   const ac=room.answer==='oui'?'a-oui':room.answer==='non'?'a-non':'a-dk';
   const label=room.answer==='ne sait pas'?'NE SAIT PAS':room.answer.toUpperCase();
   html('ansrev',`
-    <div class="card">
-      <div class="ct">Réponse</div>
-      <div class="rbox">
-        <div class="rq">Est-ce que l'Élu ${room.question} ?</div>
-        <div class="ra ${ac}">${label}</div>
-      </div>
-    </div>
-    <div class="card"><div class="ggrid">${gphotos(room,false)}</div></div>
+    <div class="card"><div class="ct">Réponse</div>
+      <div class="rbox"><div class="rq">Est-ce que l'Élu ${room.question} ?</div><div class="ra ${ac}">${label}</div></div></div>
+    <div class="card"><div class="ggrid">${gphotos(room,false,true)}</div></div>
     ${!isChooser
-      ?`<button class="btn bgold" id="btn-elim" ${pid===activeEnqId?'':'disabled'}>
-          ${pid===activeEnqId?'Passer à l\'élimination →':'En attente de l\'enquêteur actif…'}
-        </button>`
-      :`<div class="pulse">Les enquêteurs discutent entre eux…</div>`}
+      ?`<button class="btn bgold" id="btn-elim" ${pid===activeEnqId?'':'disabled'}>${pid===activeEnqId?'Passer à l\'élimination →':'En attente de l\'enquêteur actif…'}</button>`
+      :`<div class="pulse">Les enquêteurs discutent…</div>`}
   `);
-  if(!isChooser&&pid===activeEnqId){
-    document.getElementById('btn-elim').onclick=async()=>{
-      const d=await getRoom(roomCode);d.phase=PHASE.ELIM;d.pendingElim=[];d.suggestions={};await saveRoom(roomCode,d);
-    };
-  }
+  bindZoom(room);
+  if(!isChooser&&pid===activeEnqId) document.getElementById('btn-elim').onclick=async()=>{const d=await getRoom(roomCode);d.phase=PHASE.ELIM;d.pendingElim=[];d.suggestions={};await saveRoom(roomCode,d)};
 }
 
 // ── ELIM ──────────────────────────────────────────────────────────────────────
@@ -528,96 +652,64 @@ function showElim(room){
   const suggestions=room.suggestions||{};
   const ac=room.answer==='oui'?'a-oui':room.answer==='non'?'a-non':'a-dk';
   const label=room.answer==='ne sait pas'?'NE SAIT PAS':room.answer.toUpperCase();
-  // Légende des enquêteurs spectateurs
   const spectEnqs=room.enqueteurs.filter(id=>id!==activeEnqId);
-  const legendHTML=spectEnqs.length>0?`<div class="legend">${spectEnqs.map(id=>{
-    const p=room.players.find(x=>x.id===id);
-    return `<div class="legend-item"><div class="legend-dot" style="background:${pColor(room,id)}"></div>${p?.name||'?'}</div>`;
-  }).join('')}</div>`:'';
+  const legendHTML=spectEnqs.length>0?`<div class="legend">${spectEnqs.map(id=>{const p=room.players.find(x=>x.id===id);return `<div class="legend-item"><div class="legend-dot" style="background:${pColor(room,id)}"></div>${p?.name||'?'}</div>`}).join('')}</div>`:'';
 
-  // ── SPECTATEURS (chooser + enquêteurs non-actifs) ─────────────────────────
   if(!isActiveEnq){
     const mySugg=isChooser?[]:(suggestions[pid]||[]);
     html('elim',`
       <div class="rbadge ${isChooser?'rch':'ren'}">${isChooser?'👑 Celui qui Choisit':'🔍 Tes suggestions'}</div>
-      <div class="rbox" style="margin-bottom:0">
-        <div class="rq">Est-ce que l'Élu ${room.question} ?</div>
-        <div class="ra ${ac}">${label}</div>
-      </div>
-      <div class="card">
-        <div class="ct">${isChooser?`Sélection de ${activeEnqName}`:`Suggère des photos à ${activeEnqName}`}</div>
-        ${!isChooser?`<p style="font-family:'Crimson Pro',serif;font-size:.82rem;color:#666;margin-bottom:.6rem">
-          Touche les photos pour suggérer — ta coche apparaît sur l'écran de ${activeEnqName}.
-        </p>`:''}
+      <div class="rbox" style="margin-bottom:0"><div class="rq">Est-ce que l'Élu ${room.question} ?</div><div class="ra ${ac}">${label}</div></div>
+      <div class="card"><div class="ct">${isChooser?`Sélection de ${activeEnqName}`:`Suggère des photos à ${activeEnqName}`}</div>
+        ${!isChooser?`<p style="font-family:'Crimson Pro',serif;font-size:.8rem;color:#666;margin-bottom:.6rem">Touche les photos pour suggérer — ta coche apparaît sur son écran.</p>`:''}
         ${legendHTML}
         <div class="ggrid" style="margin-top:.4rem">${gphotosElim(room,!isChooser,pending,suggestions,mySugg,false)}</div>
-        <div class="vcount" style="margin-top:.5rem">
-          ${pending.length>0
-            ?`<span style="color:var(--red)">${pending.length} photo${pending.length>1?'s':''} sélectionnée${pending.length>1?'s':''} par ${activeEnqName}</span>`
-            :`<span style="color:#444">Aucune sélection pour l'instant…</span>`}
-        </div>
+        <div class="vcount" style="margin-top:.5rem">${pending.length>0?`<span style="color:var(--red)">${pending.length} sélectionnée${pending.length>1?'s':''} par ${activeEnqName}</span>`:`<span style="color:#444">Aucune sélection…</span>`}</div>
       </div>
       <div class="pulse">En attente de ${activeEnqName}…</div>
     `);
-    // Bind suggestions (enquêteurs non-actifs seulement)
     if(!isChooser){
       localSuggestions=[...(suggestions[pid]||[])];
       document.querySelectorAll('.gp.suggerable').forEach(el=>{
-        el.onclick=async()=>{
+        el.addEventListener('click',async()=>{
           const i=parseInt(el.dataset.i);
-          if(localSuggestions.includes(i))localSuggestions=localSuggestions.filter(x=>x!==i);
-          else localSuggestions.push(i);
-          const d=await getRoom(roomCode);
-          if(!d.suggestions)d.suggestions={};
-          d.suggestions[pid]=localSuggestions;await saveRoom(roomCode,d);
-        };
+          if(localSuggestions.includes(i))localSuggestions=localSuggestions.filter(x=>x!==i);else localSuggestions.push(i);
+          const d=await getRoom(roomCode);if(!d.suggestions)d.suggestions={};d.suggestions[pid]=localSuggestions;await saveRoom(roomCode,d);
+        });
       });
-    }
+    } else bindZoom(room);
     return;
   }
-
-  // ── ENQUÊTEUR ACTIF ───────────────────────────────────────────────────────
   html('elim',`
     <div class="rbadge ren">🔍 C'est ton tour d'éliminer</div>
-    <div class="rbox" style="margin-bottom:0">
-      <div class="rq">Est-ce que l'Élu ${room.question} ?</div>
-      <div class="ra ${ac}">${label}</div>
-    </div>
-    <div class="card">
-      <div class="ct">Élimine des photos</div>
-      <p style="font-family:'Crimson Pro',serif;font-size:.82rem;color:#666;margin-bottom:.6rem">
-        Les coches colorées = suggestions des autres enquêteurs. Min. 1 photo.
-      </p>
+    <div class="rbox" style="margin-bottom:0"><div class="rq">Est-ce que l'Élu ${room.question} ?</div><div class="ra ${ac}">${label}</div></div>
+    <div class="card"><div class="ct">Élimine des photos</div>
+      <p style="font-family:'Crimson Pro',serif;font-size:.8rem;color:#666;margin-bottom:.6rem">Les coches colorées = suggestions des autres. Min. 1.</p>
       ${legendHTML}
       <div class="ggrid" style="margin-top:.4rem">${gphotosElim(room,true,pending,suggestions,[],true)}</div>
-      <div class="vcount" id="vinfo">${pending.length>0?`${pending.length} photo${pending.length>1?'s':''} sélectionnée${pending.length>1?'s':''}…`:'0 photo sélectionnée'}</div>
+      <div class="vcount" id="vinfo">${pending.length>0?`${pending.length} sélectionnée${pending.length>1?'s':''}…`:'0 photo sélectionnée'}</div>
     </div>
     <button class="btn bd" id="btn-elim-ok" ${pending.length>0?'':'disabled'}>Confirmer l'élimination</button>
   `);
   localVotes=[...pending];
   document.querySelectorAll('.gp.sel').forEach(el=>{
-    el.onclick=async()=>{
+    el.addEventListener('click',async()=>{
       const i=parseInt(el.dataset.i);
-      if(localVotes.includes(i))localVotes=localVotes.filter(x=>x!==i);
-      else localVotes.push(i);
+      if(localVotes.includes(i))localVotes=localVotes.filter(x=>x!==i);else localVotes.push(i);
       const n=localVotes.length;
-      document.getElementById('vinfo').textContent=`${n} photo${n>1?'s':''} sélectionnée${n>1?'s':''}`;
+      document.getElementById('vinfo').textContent=`${n} sélectionnée${n>1?'s':''}`;
       document.getElementById('btn-elim-ok').disabled=n===0;
       const d=await getRoom(roomCode);d.pendingElim=localVotes;await saveRoom(roomCode,d);
-    };
+    });
   });
   document.getElementById('btn-elim-ok').onclick=async()=>{
     if(localVotes.length===0)return;
-    const d=await getRoom(roomCode);
-    const toElim=localVotes;const newElims=[...(d.eliminations||[]),...toElim];
+    const d=await getRoom(roomCode);const toElim=localVotes;const newElims=[...(d.eliminations||[]),...toElim];
     d.pendingElim=[];d.suggestions={};
-    if(toElim.includes(d.eluIndex)){
-      d.eliminations=newElims;d.winner='chooser';d.phase=PHASE.END;
-    } else {
-      const rem=d.displayPhotos.filter((_,i)=>!newElims.includes(i));
+    if(toElim.includes(d.eluIndex)){d.eliminations=newElims;d.winner='chooser';d.phase=PHASE.END;}
+    else{const rem=d.displayPhotos.filter((_,i)=>!newElims.includes(i));
       if(rem.length<=1){d.eliminations=newElims;d.winner='enqueteurs';d.phase=PHASE.END;}
-      else{d.eliminations=newElims;d.curEnqIdx=(d.curEnqIdx||0)+1;d.history=[...(d.history||[]),{q:d.question,a:d.answer}];d.question='';d.answer='';d.phase=PHASE.QPICK;}
-    }
+      else{d.eliminations=newElims;d.curEnqIdx=(d.curEnqIdx||0)+1;d.history=[...(d.history||[]),{q:d.question,a:d.answer}];d.question='';d.answer='';d.phase=PHASE.QPICK;}}
     await saveRoom(roomCode,d);
   };
 }
@@ -631,83 +723,140 @@ function showEnd(room){
   const eluPhoto=room.displayPhotos[room.eluIndex];
   const poolSize=(room.photoPool||[]).length;
   const me=room.players.find(p=>p.id===pid);
-  const hist=(room.history||[]).map((r,i)=>`<div class="hrow"><span>Tour ${i+1}</span> — ${r.q} ? → <strong>${r.a==='ne sait pas'?'NSP':r.a.toUpperCase()}</strong></div>`).join('')
-    ||'<div style="color:#444;font-size:.75rem">Partie express !</div>';
+  const hist=(room.history||[]).map((r,i)=>`<div class="hrow"><span>Tour ${i+1}</span> — ${r.q} ? → <strong>${r.a==='ne sait pas'?'NSP':r.a.toUpperCase()}</strong></div>`).join('')||'<div style="color:#444;font-size:.75rem">Partie express !</div>';
   html('end',`
     <div class="etitle ${iWin?'ewin':'elose'}">${iWin?'🏆 Victoire !':'💀 Défaite'}</div>
-    <div style="font-family:'Crimson Pro',serif;font-size:1.05rem;text-align:center;line-height:1.7;color:#aaa">
-      ${enqWin
-        ?`Les <strong style="color:var(--gold)">Enquêteurs</strong> ont retrouvé l'Élu !<br/><span style="color:var(--red)">${chooser?.name}</span> a perdu.`
-        :room.winner==='chooser'
-          ?`Les Enquêteurs ont éliminé l'Élu par erreur…<br/><strong style="color:var(--gold)">${chooser?.name}</strong> a gagné !`
-          :`Fin de partie.`}
+    <div style="font-family:'Crimson Pro',serif;font-size:1rem;text-align:center;line-height:1.7;color:#aaa">
+      ${enqWin?`Les <strong style="color:var(--gold)">Enquêteurs</strong> ont retrouvé l'Élu !<br/><span style="color:var(--red)">${chooser?.name}</span> a perdu.`
+        :room.winner==='chooser'?`Les Enquêteurs ont éliminé l'Élu par erreur…<br/><strong style="color:var(--gold)">${chooser?.name}</strong> a gagné !`:`Fin de partie.`}
     </div>
-    ${eluPhoto?`<div class="card" style="text-align:center">
-      <div class="ct">L'Élu était…</div>
-      <div style="width:150px;height:150px;margin:0 auto;border-radius:4px;overflow:hidden;border:2px solid var(--gold)">
-        <img src="${eluPhoto.src}" style="width:100%;height:100%;object-fit:cover"/>
-      </div>
-      <div style="margin-top:.5rem;font-family:'Bebas Neue',sans-serif;color:var(--gold);font-size:1.1rem;letter-spacing:.1em">Photo #${room.eluIndex+1}</div>
+    ${eluPhoto?`<div class="card" style="text-align:center"><div class="ct">L'Élu était…</div>
+      <div style="width:140px;height:140px;margin:0 auto;border-radius:4px;overflow:hidden;border:2px solid var(--gold);cursor:pointer" id="elu-photo-btn">
+        <img src="${eluPhoto.src}" style="width:100%;height:100%;object-fit:cover"/></div>
+      <div style="margin-top:.4rem;font-family:'Bebas Neue',sans-serif;color:var(--gold);font-size:1rem;letter-spacing:.1em">Photo #${room.eluIndex+1}</div>
     </div>`:''}
-    <div class="card">
-      <div class="ct">Résumé — Manche ${room.manche}</div>
-      <div class="hlog">${hist}</div>
+    <div class="card"><div class="ct">Résumé — Manche ${room.manche}</div><div class="hlog">${hist}</div></div>
+    ${poolSize>0?`<div class="pool-info">♻️ <strong>${poolSize}</strong> photo${poolSize>1?'s':''} en réserve</div>`:''}
+    ${me?.isHost?`<button class="btn bgold" id="btn-vote" style="margin-top:.5rem">⭐ Voter pour la meilleure photo</button>
+      <div class="btn-row">
+        <button class="btn bp" id="btn-next">⚔ Manche ${room.manche+1}</button>
+        <button class="btn bg" id="btn-restart">↺ Reset</button>
+      </div>`:`<div class="pulse">En attente de l'host…</div>`}
+  `);
+  if(eluPhoto) document.getElementById('elu-photo-btn')?.addEventListener('click',()=>openPhoto(eluPhoto.src,room.eluIndex+1));
+  if(me?.isHost){
+    document.getElementById('btn-vote')?.addEventListener('click',async()=>{const d=await getRoom(roomCode);d.phase=PHASE.VOTE;d.photoVotes={};await saveRoom(roomCode,d)});
+    document.getElementById('btn-next')?.addEventListener('click',async()=>{const d=await getRoom(roomCode);Object.assign(d,{phase:PHASE.UPLOAD,manche:(d.manche||1)+1,displayPhotos:[],eluIndex:-1,chooserId:'',enqueteurs:[],curEnqIdx:0,question:'',answer:'',eliminations:[],history:[],winner:'',pendingElim:[],suggestions:{},votes:{},photoVotes:{},players:d.players.map(p=>({...p,photos:[],ready:false}))});await saveRoom(roomCode,d)});
+    document.getElementById('btn-restart')?.addEventListener('click',async()=>{const d=await getRoom(roomCode);Object.assign(d,{phase:PHASE.LOBBY,manche:1,photoPool:[],displayPhotos:[],eluIndex:-1,chooserId:'',enqueteurs:[],curEnqIdx:0,question:'',answer:'',eliminations:[],history:[],winner:'',pendingElim:[],suggestions:{},votes:{},photoVotes:{},players:d.players.map(p=>({...p,photos:[],ready:false}))});await saveRoom(roomCode,d)});
+  }
+}
+
+// ── VOTE MEILLEURE PHOTO ──────────────────────────────────────────────────────
+function showVote(room){
+  const myVote=(room.photoVotes||{})[pid];
+  const votedCount=Object.keys(room.photoVotes||{}).length;
+  const total=room.players.length;
+  const me=room.players.find(p=>p.id===pid);
+  // Toutes les photos non éliminées + éliminées sont toutes affichées pour le vote
+  const allPhotos=room.displayPhotos||[];
+  html('vote',`
+    <div class="rbadge ren" style="font-size:1.1rem">⭐ Meilleure Photo</div>
+    <div class="card"><div class="ct">Quelle est ta photo préférée de cette partie ?</div>
+      ${myVote!==undefined?`<p style="font-family:'Crimson Pro',serif;font-size:.88rem;color:#4caf50;margin-bottom:.7rem">✓ Vote enregistré ! (${votedCount}/${total} joueurs ont voté)</p>`:''}
+      <div class="vote-grid">
+        ${allPhotos.map((p,i)=>`<div class="vote-photo ${myVote===i?'my-vote':''}" data-vi="${i}" style="cursor:${myVote!==undefined?'default':'pointer'}">
+          <img src="${p.src}"/>
+        </div>`).join('')}
+      </div>
     </div>
-    ${poolSize>0?`<div class="pool-info">♻️ <strong>${poolSize}</strong> photo${poolSize>1?'s':''} en réserve pour la manche suivante</div>`:''}
+    ${me?.isHost?`<button class="btn bp" id="btn-podium" ${votedCount>=1?'':'disabled'}>${votedCount===total?'Voir le podium !':'Voir le podium ('+votedCount+'/'+total+')'}</button>`:`<div class="pulse">${votedCount}/${total} votes…</div>`}
+  `);
+  if(myVote===undefined){
+    document.querySelectorAll('.vote-photo').forEach(el=>{
+      el.addEventListener('click',async()=>{
+        const i=parseInt(el.dataset.vi);
+        const d=await getRoom(roomCode);if(!d.photoVotes)d.photoVotes={};d.photoVotes[pid]=i;await saveRoom(roomCode,d);
+      });
+    });
+  }
+  document.querySelectorAll('.vote-photo').forEach(el=>{
+    el.addEventListener('click',()=>{if(myVote!==undefined){const i=parseInt(el.dataset.vi);openPhoto(allPhotos[i].src,i+1)}});
+  });
+  if(me?.isHost) document.getElementById('btn-podium')?.addEventListener('click',async()=>{const d=await getRoom(roomCode);d.phase=PHASE.PODIUM;await saveRoom(roomCode,d)});
+}
+
+// ── PODIUM ────────────────────────────────────────────────────────────────────
+function showPodium(room){
+  const votes=room.photoVotes||{};
+  const allPhotos=room.displayPhotos||[];
+  // Tally
+  const counts={};Object.values(votes).forEach(i=>{counts[i]=(counts[i]||0)+1});
+  const sorted=Object.entries(counts).sort(([,a],[,b])=>b-a);
+  const total=Object.values(votes).length||1;
+  const winnerId=sorted.length>0?parseInt(sorted[0][0]):-1;
+  const winnerPhoto=winnerId>=0?allPhotos[winnerId]:null;
+  const me=room.players.find(p=>p.id===pid);
+  html('podium',`
+    <div class="etitle ewin" style="font-size:2.5rem">⭐ Podium</div>
+    ${winnerPhoto?`<div class="card" style="text-align:center"><div class="ct">🥇 Meilleure photo</div>
+      <div class="winner-photo" style="cursor:pointer" id="winner-btn"><img src="${winnerPhoto.src}"/></div>
+      <div style="margin-top:.5rem;font-family:'Bebas Neue',sans-serif;color:var(--gold);font-size:1rem;letter-spacing:.1em">Photo #${winnerId+1} · ${sorted[0][1]} vote${sorted[0][1]>1?'s':''}</div>
+    </div>`:'<div class="card" style="text-align:center;color:#555">Aucun vote</div>'}
+    <div class="card"><div class="ct">Résultats complets</div>
+      <div class="vote-bar-wrap">
+        ${sorted.map(([idx,cnt])=>{const i=parseInt(idx);const p=allPhotos[i];return p?`<div class="vote-bar-item">
+          <img class="vote-bar-img" src="${p.src}" style="cursor:pointer" data-zoom="${i}"/>
+          <div class="vote-bar-track"><div class="vote-bar-fill" style="width:${Math.round(cnt/total*100)}%"></div></div>
+          <div class="vote-bar-count">${cnt}</div>
+        </div>`:''}).join('')}
+      </div>
+    </div>
     ${me?.isHost?`<div class="btn-row">
-      <button class="btn bp" id="btn-next">⚔ Manche ${room.manche+1}</button>
-      <button class="btn bg" id="btn-restart">↺ Reset</button>
+      <button class="btn bp" id="btn-next2">⚔ Manche ${room.manche+1}</button>
+      <button class="btn bg" id="btn-restart2">↺ Reset</button>
     </div>`:`<div class="pulse">En attente de l'host…</div>`}
   `);
-  document.getElementById('btn-next')?.addEventListener('click',async()=>{
-    const d=await getRoom(roomCode);
-    Object.assign(d,{phase:PHASE.UPLOAD,manche:(d.manche||1)+1,displayPhotos:[],eluIndex:-1,chooserId:'',
-      enqueteurs:[],curEnqIdx:0,question:'',answer:'',eliminations:[],history:[],winner:'',
-      pendingElim:[],suggestions:{},players:d.players.map(p=>({...p,photos:[],ready:false}))});
-    await saveRoom(roomCode,d);
-  });
-  document.getElementById('btn-restart')?.addEventListener('click',async()=>{
-    const d=await getRoom(roomCode);
-    Object.assign(d,{phase:PHASE.LOBBY,manche:1,photoPool:[],displayPhotos:[],eluIndex:-1,chooserId:'',
-      enqueteurs:[],curEnqIdx:0,question:'',answer:'',eliminations:[],history:[],winner:'',
-      pendingElim:[],suggestions:{},players:d.players.map(p=>({...p,photos:[],ready:false}))});
-    await saveRoom(roomCode,d);
-  });
+  document.getElementById('winner-btn')?.addEventListener('click',()=>{if(winnerPhoto)openPhoto(winnerPhoto.src,winnerId+1)});
+  document.querySelectorAll('[data-zoom]').forEach(el=>{el.addEventListener('click',()=>{const i=parseInt(el.dataset.zoom);openPhoto(allPhotos[i].src,i+1)})});
+  if(me?.isHost){
+    document.getElementById('btn-next2')?.addEventListener('click',async()=>{const d=await getRoom(roomCode);Object.assign(d,{phase:PHASE.UPLOAD,manche:(d.manche||1)+1,displayPhotos:[],eluIndex:-1,chooserId:'',enqueteurs:[],curEnqIdx:0,question:'',answer:'',eliminations:[],history:[],winner:'',pendingElim:[],suggestions:{},votes:{},photoVotes:{},players:d.players.map(p=>({...p,photos:[],ready:false}))});await saveRoom(roomCode,d)});
+    document.getElementById('btn-restart2')?.addEventListener('click',async()=>{const d=await getRoom(roomCode);Object.assign(d,{phase:PHASE.LOBBY,manche:1,photoPool:[],displayPhotos:[],eluIndex:-1,chooserId:'',enqueteurs:[],curEnqIdx:0,question:'',answer:'',eliminations:[],history:[],winner:'',pendingElim:[],suggestions:{},votes:{},photoVotes:{},players:d.players.map(p=>({...p,photos:[],ready:false}))});await saveRoom(roomCode,d)});
+  }
 }
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
-function gphotos(room,selectable=false){
+function gphotos(room,selectable=false,zoomable=false){
   const elims=room.eliminations||[];
   return (room.displayPhotos||[]).map((p,i)=>{
     const isElim=elims.includes(i);
     let cls='gp';if(selectable&&!isElim)cls+=' sel';if(isElim)cls+=' elim';
-    return `<div class="${cls}" data-i="${i}"><img src="${p.src}"/><div class="pnum">${i+1}</div></div>`;
+    return `<div class="${cls}" data-i="${i}"><img src="${p.src}"/><div class="pnum">${i+1}</div>${zoomable&&!isElim?`<div class="zoom-hint">🔍</div>`:''}</div>`;
   }).join('');
 }
-
 function gphotosElim(room,canSuggest,pending,suggestions,mySugg,isActiveEnq){
   const elims=room.eliminations||[];
   return (room.displayPhotos||[]).map((p,i)=>{
-    const isElim=elims.includes(i);
-    const isPending=pending.includes(i);
-    const isMyS=mySugg.includes(i);
-    // Dots colorés des enquêteurs qui suggèrent cette photo
-    const dots=Object.entries(suggestions)
-      .filter(([sid,votes])=>Array.isArray(votes)&&votes.includes(i))
-      .map(([sid])=>`<div class="sdot" style="background:${pColor(room,sid)}"></div>`).join('');
+    const isElim=elims.includes(i);const isPending=pending.includes(i);const isMyS=mySugg.includes(i);
+    const dots=Object.entries(suggestions).filter(([sid,votes])=>Array.isArray(votes)&&votes.includes(i)).map(([sid])=>`<div class="sdot" style="background:${pColor(room,sid)}"></div>`).join('');
     let cls='gp';
-    if(isActiveEnq&&!isElim)cls+=' sel';
-    else if(canSuggest&&!isElim)cls+=' suggerable';
-    if(isElim)cls+=' elim';
-    if(isPending||isMyS)cls+=' active-elim';
-    // Bordure de la couleur du joueur si c'est sa suggestion
-    const borderStyle=isMyS&&!isPending?`style="border-color:${pColor(room,pid)};box-shadow:0 0 6px ${pColor(room,pid)}60"`:
-      isPending?`style="border-color:var(--red)"`:''
-    return `<div class="${cls}" data-i="${i}" ${borderStyle}><img src="${p.src}"/>
+    if(isActiveEnq&&!isElim)cls+=' sel';else if(canSuggest&&!isElim)cls+=' suggerable';
+    if(isElim)cls+=' elim';if(isPending||isMyS)cls+=' active-elim';
+    const bStyle=isMyS&&!isPending?`style="border-color:${pColor(room,pid)};box-shadow:0 0 6px ${pColor(room,pid)}60"`:isPending?`style="border-color:var(--red)"`:''
+    return `<div class="${cls}" data-i="${i}" ${bStyle}><img src="${p.src}"/>
       <div class="pnum">${i+1}</div>
+      ${!isElim?`<div class="zoom-hint">🔍</div>`:''}
       ${dots?`<div class="sdots">${dots}</div>`:''}
     </div>`;
   }).join('');
+}
+function bindZoom(room){
+  document.querySelectorAll('.gp:not(.elim):not(.sel):not(.suggerable)').forEach(el=>{
+    el.addEventListener('click',()=>{const i=parseInt(el.dataset.i);if(room.displayPhotos[i])openPhoto(room.displayPhotos[i].src,i+1)});
+  });
+  // also bind non-sel gp that are just for display
+  document.querySelectorAll('.gp:not(.elim)').forEach(el=>{
+    if(!el.dataset.bound){el.dataset.bound='1';el.addEventListener('click',()=>{const i=parseInt(el.dataset.i);if(room.displayPhotos[i])openPhoto(room.displayPhotos[i].src,i+1)})}
+  });
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
