@@ -411,13 +411,17 @@ function showLobby(room){
       ?`<button class="btn bp" id="btn-options" ${room.players.length>=2?'':'disabled'}>${room.players.length>=2?`Options & Lancer →`:'En attente de joueurs…'}</button>`
       :`<div class="pulse">En attente que l'host configure la partie…</div>`}
   `);
-  if(me.isHost) {
+  if (me.isHost) {
   const btnOptions = document.getElementById('btn-options');
+
   if (btnOptions) {
     btnOptions.onclick = async () => {
       const d = await getRoom(roomCode);
       d.phase = PHASE.OPTIONS;
-      await saveRoom(roomCode, d)};
+      await saveRoom(roomCode, d);
+     };
+    }
+  }
 }
 
 // ── OPTIONS ───────────────────────────────────────────────────────────────────
