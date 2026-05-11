@@ -18,11 +18,23 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:800;b
 #hdr h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,6vw,3rem);letter-spacing:.06em;line-height:1;text-shadow:0 0 40px rgba(200,16,46,.35)}
 #hdr p{font-family:'Crimson Pro',serif;font-style:italic;color:var(--gold);font-size:.75rem;letter-spacing:.18em;margin-top:.2rem}
 .alpha-tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.58rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#555;border:1px solid #2a2a2a;padding:.15rem .5rem;border-radius:2px;margin-top:.3rem}
+.byline{font-family:'Crimson Pro',serif;font-style:italic;font-size:.68rem;color:#333;letter-spacing:.08em;margin-top:.25rem;transition:color .3s}
+.byline:hover{color:#555}
+.byline a{color:inherit;text-decoration:none}
 .test-tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.58rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#f39c12;border:1px solid #f39c12;padding:.15rem .5rem;border-radius:2px;margin-top:.3rem;animation:testpulse 1.5s ease-in-out infinite}
 @keyframes testpulse{0%,100%{opacity:.5}50%{opacity:1}}
 .test-mode-banner{background:#1a1200;border:1px solid #f39c12;border-radius:3px;padding:.6rem 1rem;font-size:.7rem;color:#f39c12;letter-spacing:.1em;text-align:center;width:100%}
 .tap-hint{font-size:.6rem;color:#2a2a2a;text-align:center;letter-spacing:.08em;margin-top:.3rem;transition:color .3s}
 .tap-hint.lit{color:#f39c12}
+/* ── TEST SWITCHER ── */
+#test-switcher{position:fixed;top:0;left:0;right:0;z-index:750;background:#1a1200;border-bottom:1px solid #f39c12;padding:.4rem .8rem;display:none;align-items:center;gap:.4rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
+#test-switcher.show{display:flex}
+#test-switcher .ts-label{font-size:.6rem;letter-spacing:.12em;color:#f39c12;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+.ts-btn{font-family:'IBM Plex Mono',monospace;font-size:.65rem;font-weight:600;padding:.3rem .6rem;border-radius:2px;border:1px solid #333;background:#111;color:#666;cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0}
+.ts-btn:hover{border-color:#f39c12;color:#f39c12}
+.ts-btn.ts-active{background:#f39c12;color:#0a0a0a;border-color:#f39c12}
+.ts-btn.ts-chooser{border-color:#c8102e}
+.ts-btn.ts-enq{border-color:#3498db}
 
 /* ── SCREEN ── */
 .scr{max-width:480px;margin:0 auto;padding:1.2rem 1rem 6rem;display:flex;flex-direction:column;gap:1rem;align-items:center}
@@ -200,6 +212,11 @@ label{font-size:.63rem;letter-spacing:.14em;color:#555;display:block;margin-bott
 <div id="hdr" style="display:none">
   <h1>Le Jour du Jugement</h1>
   <p id="hdr-sub">qui sera l'élu ?</p>
+  <div style="display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:.3rem;flex-wrap:wrap">
+    <span class="alpha-tag">Version Alpha</span>
+    <span style="color:#2a2a2a;font-size:.6rem">·</span>
+    <span class="byline">par Djis</span>
+  </div>
 </div>
 <div id="root"></div>
 
@@ -226,6 +243,11 @@ label{font-size:.63rem;letter-spacing:.14em;color:#555;display:block;margin-bott
   <button id="photo-modal-close">✕ Fermer</button>
 </div>
 <div id="emote-stage"></div>
+<!-- TEST MODE PLAYER SWITCHER -->
+<div id="test-switcher">
+  <span class="ts-label">🧪 Joueur :</span>
+  <div id="ts-btns" style="display:flex;gap:.4rem"></div>
+</div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -306,6 +328,9 @@ function isTrash(room){return room.options?.trashMode}
 const pid=genId();
 let roomCode='',myName='',roomUnsub=null,chatUnsub=null,emoteUnsub=null;
 let localVotes=[],localSuggestions=[],chatOpen=false,unreadCount=0,currentRoom=null;
+// Test mode active player (can impersonate any bot)
+let testActivePid=null;
+function activePid(){return (currentRoom?._testMode&&testActivePid)?testActivePid:pid;}
 
 async function getRoom(c){const s=await getDoc(doc(db,'rooms',c));return s.exists()?s.data():null}
 async function saveRoom(c,d){await setDoc(doc(db,'rooms',c),d)}
@@ -358,6 +383,35 @@ document.getElementById('emote-fab').onclick=()=>{emoteOpen=!emoteOpen;document.
 document.querySelectorAll('.emote-btn').forEach(btn=>{btn.onclick=()=>{sendEmote(btn.dataset.e);emoteOpen=false;document.getElementById('emote-panel').classList.remove('open')}});
 function showFabs(show){document.getElementById('chat-fab').style.display=show?'flex':'none';document.getElementById('emote-fab').style.display=show?'flex':'none'}
 
+// ── TEST MODE SWITCHER ───────────────────────────────────────────────────────
+function renderTestSwitcher(room){
+  const sw=document.getElementById('test-switcher');
+  if(!room||!room._testMode){sw.classList.remove('show');return;}
+  sw.classList.add('show');
+  const btns=document.getElementById('ts-btns');
+  btns.innerHTML=room.players.map(p=>{
+    const isActive=activePid()===p.id;
+    const isChooser=p.id===room.chooserId;
+    const isEnq=room.enqueteurs&&room.enqueteurs.includes(p.id);
+    let cls='ts-btn';
+    if(isActive)cls+=' ts-active';
+    else if(isChooser)cls+=' ts-chooser';
+    else if(isEnq)cls+=' ts-enq';
+    const role=isChooser?'👑':isEnq?'🔍':'';
+    return `<button class="${cls}" data-tpid="${p.id}">${role}${p.name}</button>`;
+  }).join('');
+  btns.querySelectorAll('.ts-btn').forEach(btn=>{
+    btn.onclick=()=>{
+      testActivePid=btn.dataset.tpid;
+      renderTestSwitcher(room);
+      render(room);
+    };
+  });
+  // Add margin-top to scr so content isn't hidden under switcher
+  const scr=document.querySelector('.scr');
+  if(scr)scr.style.paddingTop='3.5rem';
+}
+
 // ── RENDER ────────────────────────────────────────────────────────────────────
 async function render(room){
   currentRoom=room;
@@ -368,6 +422,9 @@ async function render(room){
   const testLabel=room._testMode?' 🧪':'';
   setHdr(room.code?`room : ${room.code}${mancheLabel}${trashLabel}${testLabel}`:'qui sera l\'élu ?');
   showFabs(room.phase!==PHASE.LOBBY&&room.phase!==PHASE.OPTIONS);
+  renderTestSwitcher(room);
+  // In test mode, default activePid to pid if not set
+  if(room._testMode&&!testActivePid)testActivePid=pid;
   const {phase:ph}=room;
   if(ph===PHASE.LOBBY)    return showLobby(room);
   if(ph===PHASE.OPTIONS)  return showOptions(room);
@@ -706,7 +763,7 @@ function showUpload(room){
 // ── CHOOSING ──────────────────────────────────────────────────────────────────
 function showChoosing(room){
   const trash=isTrash(room);
-  const isChooser=pid===room.chooserId;
+  const isChooser=activePid()===room.chooserId;
   const chooser=room.players.find(p=>p.id===room.chooserId);
   if(isChooser){
     html('choosing',`
@@ -748,7 +805,7 @@ function showChoosing(room){
 function showQpick(room){
   const trash=isTrash(room);
   const enqId=room.enqueteurs[room.curEnqIdx%room.enqueteurs.length];
-  const isEnq=pid===enqId;
+  const isEnq=activePid()===enqId;
   const enqP=room.players.find(p=>p.id===enqId);
   const remaining=room.displayPhotos.length-(room.eliminations||[]).length;
   if(isEnq){
@@ -788,7 +845,7 @@ function showQpick(room){
 // ── QREV ──────────────────────────────────────────────────────────────────────
 function showQrev(room){
   const trash=isTrash(room);
-  const isChooser=pid===room.chooserId;
+  const isChooser=activePid()===room.chooserId;
   const chooser=room.players.find(p=>p.id===room.chooserId);
   html('qrev',`
     <div class="card"><div class="ct">La Question</div>
@@ -805,7 +862,7 @@ function showQrev(room){
 // ── ANS ───────────────────────────────────────────────────────────────────────
 function showAns(room){
   const trash=isTrash(room);
-  const isChooser=pid===room.chooserId;
+  const isChooser=activePid()===room.chooserId;
   if(isChooser){
     html('ans',`
       <div class="rbadge ${trash?'rch-trash':'rch'}">👑 Ta réponse</div>
@@ -832,7 +889,7 @@ function showAns(room){
 // ── ANSREV ────────────────────────────────────────────────────────────────────
 function showAnsrev(room){
   const trash=isTrash(room);
-  const isChooser=pid===room.chooserId;
+  const isChooser=activePid()===room.chooserId;
   const activeEnqId=room.enqueteurs[room.curEnqIdx%room.enqueteurs.length];
   const ac=room.answer==='oui'?'a-oui':room.answer==='non'?'a-non':'a-dk';
   const label=room.answer==='ne sait pas'?'NE SAIT PAS':room.answer.toUpperCase();
@@ -845,15 +902,15 @@ function showAnsrev(room){
       :`<div class="pulse">Les enquêteurs discutent…</div>`}
   `);
   bindZoom(room);
-  if(!isChooser&&pid===activeEnqId){const _be=document.getElementById('btn-elim');if(_be)_be.onclick=async()=>{const d=await getRoom(roomCode);d.phase=PHASE.ELIM;d.pendingElim=[];d.suggestions={};await saveRoom(roomCode,d)};}
+  if(!isChooser&&activePid()===activeEnqId){const _be=document.getElementById('btn-elim');if(_be)_be.onclick=async()=>{const d=await getRoom(roomCode);d.phase=PHASE.ELIM;d.pendingElim=[];d.suggestions={};await saveRoom(roomCode,d)};}
 }
 
 // ── ELIM ──────────────────────────────────────────────────────────────────────
 function showElim(room){
   const trash=isTrash(room);
-  const isChooser=pid===room.chooserId;
+  const isChooser=activePid()===room.chooserId;
   const activeEnqId=room.enqueteurs[room.curEnqIdx%room.enqueteurs.length];
-  const isActiveEnq=pid===activeEnqId;
+  const isActiveEnq=activePid()===activeEnqId;
   const activeEnqName=room.players.find(p=>p.id===activeEnqId)?.name||'?';
   const pending=room.pendingElim||[];
   const suggestions=room.suggestions||{};
@@ -863,7 +920,7 @@ function showElim(room){
   const legendHTML=spectEnqs.length>0?`<div class="legend">${spectEnqs.map(id=>{const p=room.players.find(x=>x.id===id);return `<div class="legend-item"><div class="legend-dot" style="background:${pColor(room,id)}"></div>${p?.name||'?'}</div>`}).join('')}</div>`:'';
 
   if(!isActiveEnq){
-    const mySugg=isChooser?[]:(suggestions[pid]||[]);
+    const mySugg=isChooser?[]:(suggestions[activePid()]||[]);
     html('elim',`
       <div class="rbadge ${isChooser?(trash?'rch-trash':'rch'):'ren'}">${isChooser?'👑 Celui qui Choisit':'🔍 Tes suggestions'}</div>
       <div class="rbox ${trash?'trash':''}" style="margin-bottom:0"><div class="rq">Est-ce que l'Élu ${room.question} ?</div><div class="ra ${ac}">${label}</div></div>
@@ -881,7 +938,7 @@ function showElim(room){
         el.addEventListener('click',async()=>{
           const i=parseInt(el.dataset.i);
           if(localSuggestions.includes(i))localSuggestions=localSuggestions.filter(x=>x!==i);else localSuggestions.push(i);
-          const d=await getRoom(roomCode);if(!d.suggestions)d.suggestions={};d.suggestions[pid]=localSuggestions;await saveRoom(roomCode,d);
+          const d=await getRoom(roomCode);if(!d.suggestions)d.suggestions={};d.suggestions[activePid()]=localSuggestions;await saveRoom(roomCode,d);
         });
       });
     } else bindZoom(room);
@@ -923,7 +980,7 @@ function showElim(room){
 // ── END ───────────────────────────────────────────────────────────────────────
 function showEnd(room){
   const trash=isTrash(room);
-  const isChooser=pid===room.chooserId;
+  const isChooser=activePid()===room.chooserId;
   const enqWin=room.winner==='enqueteurs';
   const iWin=(enqWin&&!isChooser)||(!enqWin&&isChooser);
   const chooser=room.players.find(p=>p.id===room.chooserId);
@@ -980,7 +1037,7 @@ function showEnd(room){
 
 // ── VOTE ──────────────────────────────────────────────────────────────────────
 function showVote(room){
-  const myVote=(room.photoVotes||{})[pid];
+  const myVote=(room.photoVotes||{})[activePid()];
   const votedCount=Object.keys(room.photoVotes||{}).length;
   const total=room.players.length;
   const me=room.players.find(p=>p.id===pid);
@@ -996,7 +1053,7 @@ function showVote(room){
   `);
   if(myVote===undefined){
     document.querySelectorAll('.vote-photo').forEach(el=>{
-      el.addEventListener('click',async()=>{const i=parseInt(el.dataset.vi);const d=await getRoom(roomCode);if(!d.photoVotes)d.photoVotes={};d.photoVotes[pid]=i;await saveRoom(roomCode,d)});
+      el.addEventListener('click',async()=>{const i=parseInt(el.dataset.vi);const d=await getRoom(roomCode);if(!d.photoVotes)d.photoVotes={};d.photoVotes[activePid()]=i;await saveRoom(roomCode,d)});
     });
   } else {
     document.querySelectorAll('.vote-photo').forEach(el=>{el.addEventListener('click',()=>{const i=parseInt(el.dataset.vi);openPhoto(allPhotos[i].src,i+1)})});
